@@ -1,0 +1,138 @@
+<html>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+    </style>
+    <body>
+        <form [formGroup]="formularioDatosUsuario" class="contenedor" >
+            <div >
+                <h1>DATOS DE USUARIO</h1>
+            </div>
+            <div class="contenedor-contenedores" >
+                <div class="primer-contenedor" >
+                    <div>
+                         <!-- Nombre Usuario -->
+                        <div class="contenedor-inputs">
+                            <div>
+                                <label style="color: red; margin-left: 2%;">*</label>
+                                <label class="letras-1">Nombre de Usuario</label>
+                            </div>
+                            <input class="inputs" formControlName="username" type="text" [(ngModel)]="usuario.username">
+                            <div class="contenedor-error" *ngIf="f['username'].invalid && (f['username'].touched || f['username'].dirty)">
+                                <div class="error" *ngIf="f['username'].errors?.['required']">* Campo requerido</div>
+                                <div class="error" *ngIf="f['username'].errors?.['minlength']">* El nombre debe tener al menos 3 caracteres.</div>
+                              </div>
+                        </div>
+                        <!-- Correo -->
+                        <div class="contenedor-inputs">
+                            <div>
+                                <label style="color: red; margin-left: 2%;">*</label>
+                                <label class="letras-1">Correo</label>
+                            </div>
+                            <input  class="inputs" formControlName="correo" type="text" [(ngModel)]="usuario.correo">
+                            <div class="contenedor-error" *ngIf="f['correo'].invalid && (f['correo'].touched || f['correo'].dirty)">
+                                <div class="error" *ngIf="f['correo'].errors?.['required']">* Campo requerido</div>
+                                <div class="error" *ngIf="f['correo'].errors?.['email']">* Debe ser un correo válido.</div>
+                              </div>
+                        </div>
+                        <!-- Institución en la que labora -->
+                        <div class="contenedor-inputs">
+                            <label class="letras-1" *ngIf="usuario.tipocuenta === 'Profesor'">Institución en que trabaja</label>
+                            <label class="letras-1" *ngIf="usuario.tipocuenta === 'Estudiante'">Institución en que Estudia</label>
+                            <input formControlName="institucion"  class="inputs" type="text" [(ngModel)]="usuario.institucion">
+                        </div>
+                        <!-- Nivel Eductivo -->
+                        <div>
+                            <label class="letras-1" *ngIf="usuario.tipocuenta === 'Estudiante'">Nivel Educativo</label>
+                            <label class="letras-1" *ngIf="usuario.tipocuenta === 'Profesor'">Nivel Educativo en que labora</label>
+                            <div class="input-div" id="select" (click)="mostrarOpciones()">
+                                <div class="contenedor-niveleducativo">
+                                    <p>{{ usuario.niveleducatito }}</p>
+                                </div>
+                                <div class="icono-flecha">
+                                    <i class="fa-solid fa-angle-down"></i>
+                                </div>
+                            </div>
+                            <!-- OPCIONES DE SELECT -->
+                            <div class="opciones" id="opciones">
+                                <div class="contenedor-a" (click)="f['niveleducatito'].setValue('Prescolar')">
+                                <p class="opcion">Prescolar</p>
+                                </div>
+                                <div class="contenedor-a" (click)="f['niveleducatito'].setValue('Primaria')">
+                                <p class="opcion">Primaria</p>
+                                </div>
+                                <div class="contenedor-a" (click)="f['niveleducatito'].setValue('Secundaria')">
+                                    <p class="opcion">Secundaria</p>
+                                </div>
+                                <div class="contenedor-a" (click)="f['niveleducatito'].setValue('Bachillerato')">
+                                    <p class="opcion">Bachillerato</p>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" name="tipo-cuenta" formControlName="niveleducatito" value="">
+                        <!-- Fecha de Nacimiento -->
+                        <div  class="contenedor-inputs">
+                            <label class="letras-1">Fecha de Nacimiento</label>
+                            <input formControlName="fechanacimiento"  class="inputs" type="date" name="" id="" [(ngModel)]="usuario.fechanacimiento">
+                        </div>
+                        <!-- Sexo -->
+                        <div class="contenedor-inputs">
+                            <label class="letras-1">Sexo</label>
+                            <div class="contenedor-sexo">
+                                <div class="radio-sexo">
+                                    <input formControlName="sexo" type="radio" name="sexo" id="" value="Masculino">
+                                    <label  class="label-sexo">Masculino</label>
+                                </div>
+                                <div class="radio-sexo" id="radio-sexo-f">
+                                    <input formControlName="sexo" type="radio" name="sexo" id="" value="Femenino">
+                                    <label  class="label-sexo">Femenino</label>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Celular -->
+                        <div  class="contenedor-inputs">
+                            <label class="letras-1">Celular</label>
+                            <input formControlName="celular" class="inputs" type="text" inputmode="numeric" pattern="[0-9]{10}" maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, '');" [(ngModel)]="usuario.celular">
+                        </div>
+                    </div>
+                    <!-- Botones -->
+                    <div class="contenedor-botones">
+                        <button  class="boton-eliminar" (click)="openDialog('0ms', '0ms')">Eliminar Cuenta</button>
+                        <button class="boton-guardar" id="boton-guardar" (click)="guardarcambios()">Guardar Cambios</button>
+                    </div>
+                </div>
+                <div class="segundo-contenedor" >
+                    <div class="contenedor-imagen">
+                        <img *ngIf="usuario.tipocuenta === 'Estudiante'" class="imagen" src="/assets/img/estudiantes.png" alt="">
+                        <img *ngIf="usuario.tipocuenta === 'Profesor'" class="imagen" src="/assets/img/profesores.png" alt="">
+                    </div>
+                    <div  class="datos-usuario">
+                        <label class="letras-tipocuenta" id="otrosdatos">{{ usuario.tipocuenta }}</label>
+                        <label class="letras-2">{{ usuario.username }}</label>
+                        <label class="letras-2">{{ usuario.correo }}</label>
+                        <div class="letras-2">
+                            <label id="otrosdatos">Nivel Educativo: </label>
+                            <label>{{ usuario.niveleducatito}}</label>
+                        </div>
+                        <div class="letras-2">
+                            <label id="otrosdatos">Institucion: </label>
+                            <label >{{ usuario.institucion }}</label>
+                        </div>
+                        <div class="letras-2">
+                            <label  id="otrosdatos">Sexo: </label>
+                            <label >{{ usuario.sexo }}</label>
+                        </div>
+                        <div class="letras-2">
+                            <label id="otrosdatos">Fecha Nac: </label>
+                            <label >{{ usuario.fechanacimiento }}</label>
+                        </div>
+                        <div class="letras-2">
+                            <label id="otrosdatos">Celular: </label>
+                            <label>{{ usuario.celular }}</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        
+    </body>
+</html>

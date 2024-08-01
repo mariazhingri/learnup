@@ -1,0 +1,97 @@
+<html>
+  <head></head>
+  <body>
+    <img class="imagen-ola" src="/assets/img/Recurso 1.png" alt="">
+    <img class="chico-surf" src="/assets/img/surf.png" alt="">
+    <form [formGroup]="FormularioRegistro" class="contenedor">
+        <h1 class="letras-iniciar">Formulario de Registro</h1>
+        <div class="contenedor-inputs">
+          <!-- TIPO DE CUENTA -->
+          <div>
+            <div class="input-div" id="select" (click)="mostrarOpciones()">
+              <div class="input-icon-1">
+                <i class="fa-solid fa-user-group"></i>
+                <div class="vertical-line"></div>
+              </div>
+              <div class="contenedor-tipocuenta">
+                <p>Tipo de Cuenta</p>
+              </div>
+              <div class="icono-flecha">
+                <i class="fa-solid fa-angle-down"></i>
+              </div>
+            </div>
+            <!-- OPCIONES DE SELECT -->
+            <div class="opciones" id="opciones">
+              <div class="contenedor-a" (click)="f['tipocuenta'].setValue('Estudiante')">
+                <p class="opcion">Estudiante</p>
+              </div>
+              <div class="contenedor-a" (click)="f['tipocuenta'].setValue('Profesor')">
+                <p class="opcion">Profesor</p>
+              </div>
+            </div>
+          </div>
+          <input type="hidden" name="tipo-cuenta" formControlName="tipoCuenta" value="">
+          <!-- NOMBRE DE USUARIO-->
+          <div class="input-container">
+            <div class="input-icon">
+              <input formControlName="username" class="input" type="text" placeholder="Nombre de Usuario">
+              <div class="vertical-line"></div>
+              <i class="fa-solid fa-user"></i>
+            </div>
+            <div class="contenedor-error" *ngIf="f['username'].invalid && (f['username'].touched || f['username'].dirty)">
+              <div class="error" *ngIf="f['username'].errors?.['required']">* Campo requerido</div>
+              <div class="error" *ngIf="f['username'].errors?.['minlength']">* El nombre debe tener al menos 3 caracteres.</div>
+            </div>
+          </div>
+          <!-- CORREO -->
+          <div class="input-container">
+            <div class="input-icon">
+              <input formControlName="correo" class="input" type="text" placeholder="Correo">
+              <div class="vertical-line"></div>
+              <i class="fa-solid fa-envelope"></i>
+            </div>
+            <div class="contenedor-error" *ngIf="f['correo'].invalid && (f['correo'].touched || f['correo'].dirty)">
+              <div class="error" *ngIf="f['correo'].errors?.['required']">* Campo requerido</div>
+              <div class="error" *ngIf="f['correo'].errors?.['email']">* Debe ser un correo válido.</div>
+            </div>
+          </div>
+          <!-- CONTRASEÑA -->
+          <div class="input-container">
+            <div class="input-icon">
+              <input formControlName="password" class="input" type="password" placeholder="Contraseña">
+              <div class="vertical-line"></div>
+            <i class="fa-solid fa-lock"></i>
+            </div>
+          </div>
+          <div class="contenedor-error" *ngIf="f['password'].invalid && (f['password'].dirty || f['password'].touched)">
+            <div class="error" *ngIf="f['password'].errors?.['required']">* Campo requerido.</div>
+            <div class="error" *ngIf="f['password'].errors?.['minlength']">* La contraseña debe tener al menos 8 caracteres.</div>
+            <div class="error" *ngIf="f['password'].errors?.['specialCharacters']">* La contraseña no debe contener caracteres especiales.</div>
+          </div>
+          <!-- REPETIR CONTRASEÑA -->
+          <div class="input-container">
+            <div class="input-icon">
+              <input formControlName="repeatpassword" class="input" type="password" placeholder="Repetir Contraseña">
+              <div class="vertical-line"></div>
+            <i class="fa-solid fa-lock"></i>
+            </div>
+            <div class="contenedor-error" *ngIf="f['repeatpassword'].invalid && (f['repeatpassword'].dirty || f['repeatpassword'].touched)">
+              <div class="error" *ngIf="f['repeatpassword'].errors?.['required']">* Campo requerido</div>
+              <div class="error" *ngIf="f['repeatpassword'].errors?.['mustMatch']">* Las contraseñas no coinciden.</div>
+            </div>
+          </div>
+        </div>
+        <!-- CHECKBOX -->
+        <div class="contenedor-check">
+          <input id="termsCheckbox" formControlName="termsCheckbox" class="checkbox" type="checkbox">
+          <a href="https://www.google.com/?hl=es" class="letras-terminos">Términos y condiciones</a> 
+        </div>
+        <div class="contenedor-error" *ngIf="f['termsCheckbox'].invalid && (f['termsCheckbox'].touched || f['termsCheckbox'].dirty)">
+          <div class="error">* Debe marcar para seguir.</div>
+        </div>        
+    
+        <button [disabled]="FormularioRegistro.invalid" type="submit" (click)="onSubmit()">Registrar</button>
+        <button class="btn-registro" type="button" (click)="navigateToLogin()">Cancelar</button>
+    </form>
+  </body>  
+</html>

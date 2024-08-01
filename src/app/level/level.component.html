@@ -1,0 +1,35 @@
+
+
+<!-- START HEADING -->
+
+<div class="heading">
+  <h1>Recursos</h1>
+  <p> <a [routerLink]="'/home'">Inicio >></a> Nivel educativo </p>
+</div>
+
+<!-- END HEADING -->
+
+
+
+<!-- START CATEGORY SECTION -->
+
+<section class="category">
+  <h1 class="title"> Categoría <span>Nivel educativo</span></h1>
+  <div class="box-container">
+    <div class="box" *ngFor="let nivel of niveles" (click)="mostrarMaterias(nivel.id)">
+      <img [src]="nivel.imagen" [alt]="nivel.nombre + ' - imagen'">
+      <h3>{{ nivel.nombre }}</h3>
+    </div>
+  </div>
+</section>
+
+<!-- END CATEGORY SECTION -->
+
+
+<app-themed
+[mostrarPreescolar]="mostrarPreescolar"
+[mostrarPrimaria]="mostrarPrimaria"
+[mostrarSecundaria]="mostrarSecundaria"
+[mostrarBachillerato]="mostrarBachillerato">
+</app-themed>
+

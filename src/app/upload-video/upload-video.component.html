@@ -1,0 +1,178 @@
+
+
+<!-- START SECCIÓN DE SUBIR VIDEOS -->
+<section #videoSection class="about" *ngIf="mostrarVideos">
+  <h1 class="title">Subir <span>Video</span></h1>
+
+  <div class="row">
+    <div class="content">
+      <div class="box">
+        <h2>Detalles Principales</h2>
+        <form #uploadForm="ngForm" (ngSubmit)="subirVideo(uploadForm)" autocomplete="off">
+          <div class="input-container">
+            <label for="videoTitulo">Título del video:</label>
+            <div class="input-wrapper">
+              <input type="text" id="titulo" name="titulo" required [(ngModel)]="videoTitle" #titulo="ngModel" placeholder="Ingrese el título del video" autocomplete="off" maxlength="100">
+            </div>
+          </div>
+
+          <div class="input-container">
+            <label for="videoDescription">Descripción del video</label>
+            <div class="input-wrapper">
+              <textarea id="videoDescription" [(ngModel)]="videoDescription" name="videoDescription" required placeholder="Ingrese la descripción del video" autocomplete="off" maxlength="500"></textarea>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="content adicionales">
+      <div class="box">
+        <h2>Detalles Adicionales</h2>
+
+        <form #uploadForm="ngForm" (ngSubmit)="subirVideo(uploadForm)" autocomplete="off">
+          <div class="input-group">
+            <div class="input-container">
+              <label for="nivelInput">Nivel educativo:</label>
+              <select id="nivelInput" [(ngModel)]="selectedNivel" (change)="nivelSelected()" name="selectedNivel" required>
+                <option value="" disabled selected>Seleccionar nivel</option>
+                <option value="Preescolar">Preescolar</option>
+                <option value="Primaria">Primaria</option>
+                <option value="Secundaria">Secundaria</option>
+                <option value="Bachillerato">Bachillerato</option>
+              </select>
+            </div>
+
+            <div class="input-container">
+              <label for="materiaInput">Materia:</label>
+              <select id="materiaInput" [(ngModel)]="selectedMateriaId" name="selectedMateriaId" required (change)="materiaSelected($event)">
+                <option [value]="null">{{ defaultMateriaText }}</option>
+                <option *ngFor="let materia of selectedNivelMaterias" [value]="materia.materia_id">{{ materia.nombre }}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="input-group">
+            <div class="input-container">
+              <label for="videoInput">Opción para video:</label>
+              <select id="videoInput" [(ngModel)]="selectedVideoInput" name="selectedVideoInput" required>
+                <option value="url">URL del video</option>
+                <option value="file">Archivo de video (MP4)</option>
+              </select>
+            </div>
+
+            <div class="input-container" *ngIf="selectedVideoInput === 'url'">
+              <label for="videoUrl">URL del video</label>
+              <div class="input-wrapper">
+                <input type="url" id="videoUrl" [(ngModel)]="videoUrl" name="videoUrl" placeholder="Ingrese la URL del video" autocomplete="off" required>
+              </div>
+            </div>
+
+            <div class="input-container" *ngIf="selectedVideoInput === 'file'">
+              <label for="videoFile">Archivo de video (MP4)</label>
+              <div class="input-wrapper">
+                <input #videoFileInput type="file" id="videoFile" (change)="onVideoFileChange($event)" accept="video/mp4" style="display: none;">
+                <button type="button" class="btn" (click)="selectVideoFile()">Seleccionar archivo</button>
+                <span *ngIf="isVideoFileSelected()" class="file-selected">Archivo seleccionado: {{ selectedVideoFileName }}</span>
+                <span *ngIf="!isVideoFileSelected()" class="file-not-selected">No se ha seleccionado ningún archivo</span>
+              </div>
+            </div>
+          </div>
+
+          <button class="btn" type="submit" [ngClass]="{'btn-disabled':!uploadForm.valid}" [disabled]="!uploadForm.valid">Subir video</button>
+          <!-- <button class="btn" type="submit" [disabled]="!uploadForm.valid">Subir video</button> -->
+          <div *ngIf="!uploadForm.valid ||!isDetailsFilled()" class="error-message">
+            <br>
+            <p style="text-transform: none !important; color: var(--pink);">Por favor, complete todos los campos antes de subir el video.</p>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- <section #videoSection class="about" *ngIf="mostrarVideos">
+  <h1 class="title">Subir <span>Video</span></h1>
+
+  <div class="row">
+    <div class="content">
+      <div class="box">
+        <h2>Detalles Principales</h2>
+        <form #uploadForm="ngForm" (ngSubmit)="subirVideo(uploadForm)" autocomplete="off">
+          <div class="input-container">
+            <label for="videoTitulo">Título del video:</label>
+            <div class="input-wrapper">
+              <input type="text" id="titulo" name="titulo" required [(ngModel)]="videoTitle" #titulo="ngModel" placeholder="Ingrese el título del video" autocomplete="off" maxlength="100">
+            </div>
+          </div>
+
+          <div class="input-container">
+            <label for="videoDescription">Descripción del video</label>
+            <div class="input-wrapper">
+              <textarea id="videoDescription" [(ngModel)]="videoDescription" name="videoDescription" required placeholder="Ingrese la descripción del video" autocomplete="off" maxlength="500"></textarea>
+            </div>
+          </div>
+
+          <div class="content adicionales">
+            <div class="box">
+              <h2>Detalles Adicionales</h2>
+
+              <div class="input-group">
+                <div class="input-container">
+                  <label for="nivelInput">Nivel Educativo:</label>
+                  <select id="nivelInput" [(ngModel)]="selectedNivel" (change)="nivelSelected()" name="selectedNivel" required>
+                    <option value="" disabled selected>Seleccionar nivel</option>
+                    <option value="Preescolar">Preescolar</option>
+                    <option value="Primaria">Primaria</option>
+                    <option value="Secundaria">Secundaria</option>
+                    <option value="Bachillerato">Bachillerato</option>
+                  </select>
+                </div>
+
+                <div class="input-container">
+                  <label for="materiaInput">Materia:</label>
+                  <select id="materiaInput" [(ngModel)]="selectedMateriaId" name="selectedMateriaId" required (change)="materiaSelected($event)">
+                    <option [value]="null">{{ defaultMateriaText }}</option>
+                    <option *ngFor="let materia of selectedNivelMaterias" [value]="materia.materia_id">{{ materia.nombre }}</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="input-group">
+                <div class="input-container">
+                  <label for="videoInput">Opción para video:</label>
+                  <select id="videoInput" [(ngModel)]="selectedVideoInput" name="selectedVideoInput" required>
+                    <option value="url">URL del video</option>
+                    <option value="file">Archivo de video (MP4)</option>
+                  </select>
+                </div>
+
+                <div class="input-container" *ngIf="selectedVideoInput === 'url'">
+                  <label for="videoUrl">URL del video</label>
+                  <div class="input-wrapper">
+                    <input type="url" id="videoUrl" [(ngModel)]="videoUrl" name="videoUrl" placeholder="Ingrese la URL del video" autocomplete="off">
+                  </div>
+                </div>
+
+                <div class="input-container" *ngIf="selectedVideoInput === 'file'">
+                  <label for="videoFile">Archivo de video (MP4)</label>
+                  <div class="input-wrapper">
+                    <input #videoFileInput type="file" id="videoFile" (change)="onVideoFileChange($event)" accept="video/mp4" style="display: none;">
+                    <button type="button" class="btn3" (click)="selectVideoFile()">Seleccionar archivo</button>
+                    <span *ngIf="isVideoFileSelected()" class="file-selected">Archivo seleccionado: {{ selectedVideoFileName }}</span>
+                    <span *ngIf="!isVideoFileSelected()" class="file-not-selected">No se ha seleccionado ningún archivo</span>
+                  </div>
+                </div>
+              </div>
+
+              <button class="btn" type="submit" [disabled]="!uploadForm.valid">Subir video</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section> -->
+<!-- END SECCIÓN DE SUBIR VIDEOS -->

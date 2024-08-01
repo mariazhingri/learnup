@@ -1,0 +1,69 @@
+<div class="title">
+    <div class="heading">
+        <h1 id="titu">M i s</h1>
+        <span> </span>
+        <h1>
+           C o l e c c i o n e s
+        </h1>
+        <span>Colecciones Privadas</span>
+    </div>
+</div>
+
+<!--Colecciones del usuario-->
+<section class="collection" *ngIf="!mostrarContenido">
+    <div class="tarjetas">
+      <div class="tarjetitas" *ngFor="let coleccion of colecciones">
+        <div class="imagen">
+          <a (click)="verRecursos(coleccion)">
+            <img [src]="getImagenUrl(coleccion)" alt="Imagen de la colección">
+          </a>
+        </div>
+        <div class="contenido">
+          <div class="letras">
+            <h2>{{ coleccion.nombre }}</h2>
+            <span>Privada</span>
+          </div>
+          <div class="icons">
+            <a (click)="eliminarColeccion(coleccion.coleccion_id)"  class="fa-solid fa-trash" title="Eliminar"></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <section *ngIf="mostrarContenido">
+    <div class="titulo">
+      <h3 class="Linea-efecto">Colección {{ selectedColeccion.nombre }}</h3>
+      <a (click)="toggleContenido()">Volver</a>
+    </div>
+    <div class="tarjetas">
+      <div class="new-content">
+        <div class="cartitas" *ngIf="recursos.length > 0; else noRecursosMessage">
+          <div class="card-container" *ngFor="let recurso of recursos">
+            <div class="row" class="card">
+              <div class="media-container">
+                <div *ngIf="recurso.recurso_tipo === 'video'; else imageTemplate">
+                  <iframe [src]="getSafeUrl(recurso.url)" width="100%" height="300" style="border-radius: 1.5rem;" frameborder="0" allowfullscreen></iframe>
+                </div>
+                <ng-template #imageTemplate>
+                  <img [src]="getFullImageUrl(recurso.image_url)" alt="Imagen del recurso" width="100%" height="300" style="border-radius: 1.5rem;">
+                </ng-template>
+              </div>
+              <div class="content">
+                <h3>{{ recurso.titulo }}</h3>
+                <p>{{ recurso.descripcion }}</p>
+                <h2><a [href]="recurso.url" target="_blank">Ver más</a></h2>
+                <div class="icons">
+                  <a href="#" class="fa-solid fa-circle-down" title="Descargar"></a>
+                  <a (click)="eliminarRecurso(selectedColeccion.coleccion_id, recurso.recurso_id)" class="fa-solid fa-trash" title="Eliminar"></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <ng-template #noRecursosMessage>
+          <p>No hay recursos disponibles.</p>
+        </ng-template>
+      </div>
+    </div>
+  </section>

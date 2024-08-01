@@ -1,0 +1,123 @@
+
+
+<!-- VIDEOS SECTION START -->
+<section #videoSection class="about" *ngIf="mostrarVideos">
+
+  <!-- START FILTER -->
+  <div class="filtro">
+    <div class="search-wrapper">
+      <input type="text" placeholder="Buscar..." [(ngModel)]="filtroBusqueda" (keyup)="filtrarRecursos()">
+      <i class="fas fa-search"></i>
+    </div>
+  </div>
+  <!-- END FILTER -->
+
+
+
+  <section class="about">
+    <div class="contenedor-recursos" *ngIf="!backendProblem && !internetProblem">
+    </div>
+
+    <div class="contenedor-mensaje" *ngIf="backendProblem && !internetProblem">
+      <p style="font-size: 1.2rem; font-weight: 800; color: var(--pink);">Hay un problema con la conexión al servidor. Por favor, inténtalo de nuevo más tarde.</p>
+    </div>
+
+    <div class="contenedor-mensaje" *ngIf="!backendProblem && internetProblem">
+      <p style="font-size: 1.2rem; font-weight: 800; color: var(--pink);">Hay un problema con la conexión a internet. Por favor, verifica tu conexión e inténtalo de nuevo.</p>
+    </div>
+  </section>
+  
+
+  <h1 class="title">{{ nivel }} <span>{{ materia }}</span></h1>
+  <div *ngIf="videosMostrados.length === 0">
+    <p style="font-size: 1rem;">El recurso no existe en la base de datos</p>
+  </div>
+  <div *ngIf="videos.length > 0; else noVideosMessage">
+    <div class="row" *ngFor="let video of videosPaginados">
+      <div class="video-container" style="position: relative;">
+
+        <iframe *ngIf="isYouTubeUrl(video.url)"
+          [src]="getSafeUrl(video.url)"
+          width="100%"
+          height="315px"
+          title="Reproductor de video de YouTube"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen style="border-radius: 1.5rem;">
+        </iframe>
+
+        <video
+          *ngIf="isMp4Url(video.url)"
+          [src]="getFullVideoUrl(video.url)"
+          controls
+          width="100%"
+          height="315px"
+          style="border-radius: 1.5rem;">
+          [attr.controls]="isLoggedIn() ? 'controls' : null">
+          Tu navegador no soporta el elemento de video.
+        </video>
+
+        <iframe *ngIf="!isYouTubeUrl(video.url) && !isMp4Url(video.url)"
+          [src]="getSafeUrl(video.url)"
+          width="100%"
+          height="315px"
+          title="Reproductor de video"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen style="border-radius: 1.5rem;">
+        </iframe>
+
+        <div *ngIf="!isLoggedIn()"
+          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); color: white; display: flex; justify-content: center; align-items: center; border-radius: 1.5rem; text-transform: none; font-size: 1.3rem;">
+          <p style="text-transform: none; margin: 0;">Por favor inicia sesión para reproducir el video.</p>
+        </div>
+
+      </div>
+
+      <div class="content">
+        <h3>{{ video.titulo }}</h3>
+        <p>{{ video.descripcion }}</p>
+        <h3 *ngIf="isLoggedIn()">
+          <a *ngIf="isMp4Url(video.url)" [href]="getFullVideoUrl(video.url)" class="link-span" target="_blank">
+            <span class="link-span">Ver</span> </a>
+        </h3>
+        <h3 *ngIf="isLoggedIn()">
+          <a *ngIf="!isMp4Url(video.url)" [href]="video.url" class="link-span" target="_blank">
+            <span class="link-span">Ver</span> </a>
+        </h3>
+        <div class="icons" *ngIf="isLoggedIn()">
+          <a href="#" class="fa-solid fa-bookmark" title="Guardar" (click)="openDialog($event)"></a>
+          <a
+            [href]="isMp4Url(video.url) ? getFullVideoUrl(video.url) : video.url"
+            (click)="isMp4Url(video.url) ? handleLinkClickVideo($event, video.url) : null"
+            target="_blank"
+            class="fa-solid fa-circle-down"
+            [attr.title]="isMp4Url(video.url) ? '' : 'Descargar'">
+            <span class="link-span">{{ isMp4Url(video.url) ? '' : '' }}</span>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="pagination-container">
+    <div class="pagination">
+      <button class="btn2" (click)="irPrimeraPaginaVideos(); scrollToTop();" [disabled]="paginaActualVideos === 1">Ir al inicio</button>
+      <button class="btn2" (click)="paginaAnteriorVideos(); scrollToTop();" [disabled]="paginaActualVideos === 1">Anterior</button>
+      <span>Página {{ paginaActualVideos }} de {{ numeroTotalPaginasVideos }}</span>
+      <button class="btn2" (click)="paginaSiguienteVideos(); scrollToTop();" [disabled]="paginaActualVideos === numeroTotalPaginasVideos">Siguiente</button>
+      <button class="btn2" (click)="irUltimaPaginaVideos(); scrollToTop();" [disabled]="paginaActualVideos === numeroTotalPaginasVideos">Ir al final</button>
+    </div>
+  </div>
+  <ng-template #noVideosMessage>
+    <p style="font-size: 1rem;">No se encontraron videos para esta materia.</p>
+  </ng-template>
+</section>
+<!-- VIDEOS SECTION END -->
+
+
+
+
+

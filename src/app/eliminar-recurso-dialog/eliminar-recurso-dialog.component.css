@@ -1,0 +1,25 @@
+h2{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-weight: bold;
+    background-color:  #f0e0e9;
+}
+
+.contenido{
+    color: black;
+    font-weight: 400;
+}
+
+.elimina{
+    background-color: pink;
+    margin-right: 20px;
+}
+
+.cerra{
+    background-color: rgb(250, 218, 223);
+}
+
+
+
+mat-form-field{
+    width: 100%;
+}

@@ -1,0 +1,188 @@
+
+
+
+section {
+  font-size: 62.5%;
+  padding: 3rem 9%;
+  /* padding: 0 4rem 0 9%; */
+}
+
+
+.title {
+  background: url(/assets/img/heading4.png) no-repeat;
+  background-size: cover;
+  background-position: center;
+  text-align: center;
+  padding-top: 8rem;
+  margin-bottom: 4rem;
+}
+
+.title h1 {
+  color: var(--black-suit);
+  font-size: 2rem;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+}
+
+.title p {
+  padding-bottom: 2.5rem;
+  padding-top: .4rem;
+  font-size: 1.3rem;
+  color: var(--dark-gray);
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+}
+
+.title p a {
+  color: var(--black-suit);
+  padding-right: .5rem;
+}
+
+.title p a:hover {
+  color: var(--pink);
+}
+
+.subtitle {
+  display: inline-flex;
+  margin-left: 1rem;
+  align-items: center;
+  font-size: 1.2rem;
+  margin-bottom: 0;
+  padding: 0;
+  color: var(--black-suit);
+  display: flex;
+  justify-content: center;
+}
+
+.subtitle span {
+  color: var(--pink);
+  padding-left: .7rem;
+}
+
+.subtitle a {
+  padding-top: 1.5rem;
+  color: var(--dark-gray);
+  font-size: 1rem;
+}
+
+.subtitle a:hover {
+  color: var(--pink);
+}
+
+
+.heading{
+  display: inline-block;
+  text-align: center;
+  padding: 1.9rem 0 .6rem 0;
+  border-block: 0.1rem solid rgba(0, 0, 0, .1);
+  margin-bottom: 2rem;
+  /* margin-top: 2rem; */
+}
+
+.heading h1 {
+  color: var(--black-suit);
+  font-size: 2rem;
+  display: inline;
+}
+
+
+.heading span{
+  font-size: 2.5rem;
+  background: rgba(255, 0, 170, 0.153);
+  color: var(--pink);
+  border-radius: .5rem;
+  padding: .2rem 1rem;
+  box-shadow: 0.2rem 0.2rem 0 rgba(0, 0, 0, 0.059);
+  justify-content: space-between;
+  margin: .2rem;
+  text-transform: uppercase;
+  font-family: "Poppins", sans-serif;
+  font-weight: 800;
+}
+
+.heading span.space{
+  background: none;
+  box-shadow: none;
+}
+
+
+
+@media screen and (max-width: 790px) {
+  .heading {
+    text-align: center;
+    padding: .3rem 0 .1rem 0;
+  }
+
+  .heading span {
+    font-size: 1rem;
+    margin: 0 .2rem;
+    padding: .7rem;
+    overflow-wrap: break-word;
+  }
+}
+
+
+/* Estilos de los botones */
+.btn {
+  margin-top: 1rem;
+  display: inline-block;
+  padding:.7rem 3.5rem;
+  background: var(--pink);
+  color: var(--white);
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 5rem;
+}
+
+
+.btn:hover {
+  background: var(--black-suit);
+}
+
+
+
+/* Review section */
+.review .review-slider{
+  padding-bottom: .2rem;
+  overflow: hidden;
+}
+
+.review .box{
+  padding: 1rem;
+  text-align: center;
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
+  border-radius: 2rem;
+  margin: 1rem;
+}
+
+.review .box img{
+  height: 10rem;
+  width: 10rem;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 1rem;
+}
+
+.review .box h3{
+  color: var(--light-gray);
+  font-size: 1.2rem;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+}
+
+.review .box p{
+  color: var(--dark-gray);
+  font-size: .9rem;
+  padding: .8rem 0;
+  text-transform: none !important;
+}
+
+.review .box .stars i{
+  color: var(--pink);
+  font-size: 1.2rem;
+}
+
+.swiper-container {
+  width: 100%;
+}
+

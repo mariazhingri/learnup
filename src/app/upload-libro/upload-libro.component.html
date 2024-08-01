@@ -1,0 +1,279 @@
+
+
+<!-- START SECCIÓN DE SUBIR LIBROS -->
+<section #libroSection class="about" *ngIf="mostrarLibros">
+  <h1 class="title">Subir <span>Libro</span></h1>
+
+  <div class="row">
+    <div class="content">
+      <div class="box">
+        <h2>Detalles Principales</h2>
+        <form #uploadForm="ngForm" (ngSubmit)="subirLibro(uploadForm)" autocomplete="off">
+          <div class="input-container">
+            <label for="libroTitulo">Título del libro:</label>
+            <div class="input-wrapper">
+              <input type="text" id="titulo" name="titulo" required [(ngModel)]="libroTitle" #titulo="ngModel" placeholder="Ingrese el título del libro" autocomplete="off" maxlength="100">
+            </div>
+          </div>
+
+          <div class="input-group">
+            <div class="input-container">
+              <label for="autor">Autor del libro:</label>
+              <div class="input-wrapper">
+                <input type="text" id="autor" [(ngModel)]="autor" name="autor" placeholder="Ingrese el autor del libro" autocomplete="off" maxlength="100">
+              </div>
+            </div>
+
+            <div class="input-container">
+              <label for="edicion">Edición del libro:</label>
+              <div class="input-wrapper">
+                <input type="text" id="edicion" [(ngModel)]="edicion" name="edicion" placeholder="Ingrese la edición del libro" autocomplete="off" maxlength="100">
+              </div>
+            </div>
+
+            <div class="input-container">
+              <label for="fecha">Fecha de publicación:</label>
+              <div class="input-wrapper">
+                <input type="date" id="fecha" [(ngModel)]="fecha" name="fecha" placeholder="Ingrese la fecha de publicación del libro" autocomplete="off">
+              </div>
+            </div>
+          </div>
+
+          <div class="input-container">
+            <label for="libroDescription">Descripción del libro:</label>
+            <div class="input-wrapper">
+              <textarea id="libroDescription" [(ngModel)]="libroDescription" name="libroDescription" required placeholder="Ingrese la descripción del libro" autocomplete="off" maxlength="500"></textarea>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="content adicionales">
+      <div class="box">
+        <h2>Detalles Adicionales</h2>
+
+        <form #uploadForm="ngForm" (ngSubmit)="subirLibro(uploadForm)" autocomplete="off">
+          <div class="input-group">
+            <div class="input-container">
+              <label for="nivelInput">Nivel educativo:</label>
+              <select id="nivelInput" [(ngModel)]="selectedNivel" (change)="nivelSelected()" name="selectedNivel" required>
+                <option value="" disabled selected>Seleccionar nivel</option>
+                <option value="Preescolar">Preescolar</option>
+                <option value="Primaria">Primaria</option>
+                <option value="Secundaria">Secundaria</option>
+                <option value="Bachillerato">Bachillerato</option>
+              </select>
+            </div>
+
+            <div class="input-container">
+              <label for="materiaInput">Materia:</label>
+              <select id="materiaInput" [(ngModel)]="selectedMateriaId" name="selectedMateriaId" required (change)="materiaSelected($event)">
+                <option [value]="null">{{ defaultMateriaText }}</option>
+                <option *ngFor="let materia of selectedNivelMaterias" [value]="materia.materia_id">{{ materia.nombre }}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="input-group">
+            <div class="input-container">
+              <label for="libroInput">Opción para libro:</label>
+              <select id="libroInput" [(ngModel)]="selectedLibroInput" name="selectedLibroInput" required>
+                <option value="url">URL del libro</option>
+                <option value="file">Archivo del libro (PDF)</option>
+              </select>
+            </div>
+
+            <div class="input-container" *ngIf="selectedLibroInput === 'url'">
+              <label for="libroUrl">URL del libro</label>
+              <div class="input-wrapper">
+                <input type="url" id="libroUrl" [(ngModel)]="libroUrl" name="libroUrl" placeholder="Ingrese la URL del libro" autocomplete="off">
+              </div>
+            </div>
+
+            <div class="input-container" *ngIf="selectedLibroInput === 'file'">
+              <label for="libroFile">Archivo del libro (PDF)</label>
+              <div class="input-wrapper">
+                <input #libroFileInput type="file" id="libroFile" (change)="onLibroFileChange($event)" accept="application/pdf" style="display: none;">
+                <button type="button" class="btn" (click)="selectLibroFile()">Seleccionar archivo</button>
+                <span *ngIf="isLibroFileSelected()" class="file-selected">Archivo seleccionado: {{ selectedLibroFileName }}</span>
+                <span *ngIf="!isLibroFileSelected()" class="file-not-selected">No se ha seleccionado ningún archivo</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="input-group">
+            <div class="input-container">
+              <label for="imageInput">Imagen del libro:</label>
+              <select id="imageInput" [(ngModel)]="selectedImageInput" name="selectedImageInput" required>
+                <option value="url">URL de la imagen</option>
+                <option value="file">Archivo de imagen (PNG, JPG, JPEG)</option>
+              </select>
+            </div>
+
+            <div class="input-container" *ngIf="selectedImageInput === 'url'">
+              <label for="imageUrl">URL de la imagen</label>
+              <div class="input-wrapper">
+                <input type="url" id="imageUrl" [(ngModel)]="libroImageUrl" name="imageUrl" placeholder="Ingrese la URL de la imagen" autocomplete="off">
+              </div>
+            </div>
+
+            <div class="input-container" *ngIf="selectedImageInput === 'file'">
+              <label for="imageFile">Archivo de imagen (PNG, JPG, JPEG)</label>
+              <div class="input-wrapper">
+                <input #libroImageInput type="file" id="imageFile" (change)="onLibroImageChange($event)" accept="image/png, image/jpeg, image/jpg" style="display: none;">
+                <button type="button" class="btn" (click)="selectLibroImage()">Seleccionar archivo</button>
+                <span *ngIf="isLibroImageSelected()" class="file-selected">Archivo seleccionado: {{ libroImageFileName }}</span>
+                <span *ngIf="!isLibroImageSelected()" class="file-not-selected">No se ha seleccionado ningún archivo</span>
+              </div>
+            </div>
+          </div>
+
+          <button class="btn" type="submit" [ngClass]="{'btn-disabled':!uploadForm.valid}" [disabled]="!uploadForm.valid">Subir libro</button>
+          <!-- <button class="btn" type="submit" [disabled]="!uploadForm.valid">Subir libro</button> -->
+          <div *ngIf="!uploadForm.valid ||!isDetailsFilled()" class="error-message">
+            <br>
+            <p style="text-transform: none !important; color: var(--pink);">Por favor, complete todos los campos antes de subir el libro.</p>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- END SECCIÓN DE SUBIR LIBROS -->
+
+
+<!-- <section #libroSection class="about" *ngIf="mostrarLibros">
+  <h1 class="title">Subir <span>Libro</span></h1>
+
+  <div class="row">
+    <div class="content">
+      <div class="box">
+        <h2>Detalles principales</h2>
+        <form #uploadForm="ngForm" (ngSubmit)="subirLibro(uploadForm)" autocomplete="off">
+          <div class="input-container">
+            <label for="libroTitulo">Título del libro:</label>
+            <div class="input-wrapper">
+              <input type="text" id="titulo" name="titulo" required [(ngModel)]="libroTitle" #titulo="ngModel" placeholder="Ingrese el título del libro" autocomplete="off" maxlength="100">
+            </div>
+          </div>
+
+          <div class="input-group">
+            <div class="input-container">
+              <label for="autor">Autor del Libro:</label>
+              <div class="input-wrapper">
+                <input type="text" id="autor" [(ngModel)]="autor" name="autor" placeholder="Ingrese el autor del libro" autocomplete="off" maxlength="100">
+              </div>
+            </div>
+
+            <div class="input-container">
+              <label for="edicion">Edición del Libro:</label>
+              <div class="input-wrapper">
+                <input type="text" id="edicion" [(ngModel)]="edicion" name="edicion" placeholder="Ingrese la edición del libro" autocomplete="off" maxlength="100">
+              </div>
+            </div>
+
+            <div class="input-container">
+              <label for="fecha">Fecha de Publicación:</label>
+              <div class="input-wrapper">
+                <input type="date" id="fecha" [(ngModel)]="fecha" name="fecha" placeholder="Ingrese la fecha de publicación del libro" autocomplete="off">
+              </div>
+            </div>
+          </div>
+
+          <div class="input-container">
+            <label for="libroDescription">Descripción del libro:</label>
+            <div class="input-wrapper">
+              <textarea id="libroDescription" [(ngModel)]="libroDescription" name="libroDescription" required placeholder="Ingrese la descripción del libro" autocomplete="off" maxlength="500"></textarea>
+            </div>
+          </div>
+
+          <div class="content adicionales">
+            <div class="box">
+              <h2>Detalles adicionales</h2>
+
+              <div class="input-group">
+                <div class="input-container">
+                  <label for="nivelInput">Nivel Educativo:</label>
+                  <select id="nivelInput" [(ngModel)]="selectedNivel" (change)="nivelSelected()" name="selectedNivel" required>
+                    <option value="" disabled selected>Seleccionar nivel</option>
+                    <option value="Preescolar">Preescolar</option>
+                    <option value="Primaria">Primaria</option>
+                    <option value="Secundaria">Secundaria</option>
+                    <option value="Bachillerato">Bachillerato</option>
+                  </select>
+                </div>
+
+                <div class="input-container">
+                  <label for="materiaInput">Materia:</label>
+                  <select id="materiaInput" [(ngModel)]="selectedMateriaId" name="selectedMateriaId" required (change)="materiaSelected($event)">
+                    <option [value]="null">{{ defaultMateriaText }}</option>
+                    <option *ngFor="let materia of selectedNivelMaterias" [value]="materia.materia_id">{{ materia.nombre }}</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="input-group">
+                <div class="input-container">
+                  <label for="libroInput">Opción para Libro:</label>
+                  <select id="libroInput" [(ngModel)]="selectedLibroInput" name="selectedLibroInput" required>
+                    <option value="url">URL del Libro</option>
+                    <option value="file">Archivo del Libro (PDF)</option>
+                  </select>
+                </div>
+
+                <div class="input-container" *ngIf="selectedLibroInput === 'url'">
+                  <label for="libroUrl">URL del Libro</label>
+                  <div class="input-wrapper">
+                    <input type="url" id="libroUrl" [(ngModel)]="libroUrl" name="libroUrl" placeholder="Ingrese la URL del libro" autocomplete="off">
+                  </div>
+                </div>
+
+                <div class="input-container" *ngIf="selectedLibroInput === 'file'">
+                  <label for="libroFile">Archivo del Libro (PDF)</label>
+                  <div class="input-wrapper">
+                    <input #libroFileInput type="file" id="libroFile" (change)="onLibroFileChange($event)" accept="application/pdf" style="display: none;">
+                    <button type="button" class="btn3" (click)="selectLibroFile()">Seleccionar Archivo</button>
+                    <span *ngIf="isLibroFileSelected()" class="file-selected">Archivo seleccionado: {{ selectedLibroFileName }}</span>
+                    <span *ngIf="!isLibroFileSelected()" class="file-not-selected">No se ha seleccionado ningún archivo</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="input-group">
+                <div class="input-container">
+                  <label for="imageInput">Imagen del Libro:</label>
+                  <select id="imageInput" [(ngModel)]="selectedImageInput" name="selectedImageInput" required>
+                    <option value="url">URL de la Imagen</option>
+                    <option value="file">Archivo de Imagen (PNG, JPG, JPEG)</option>
+                  </select>
+                </div>
+
+                <div class="input-container" *ngIf="selectedImageInput === 'url'">
+                  <label for="imageUrl">URL de la Imagen</label>
+                  <div class="input-wrapper">
+                    <input type="url" id="imageUrl" [(ngModel)]="libroImageUrl" name="imageUrl" placeholder="Ingrese la URL de la imagen" autocomplete="off">
+                  </div>
+                </div>
+
+                <div class="input-container" *ngIf="selectedImageInput === 'file'">
+                  <label for="imageFile">Archivo de Imagen (PNG, JPG, JPEG)</label>
+                  <div class="input-wrapper">
+                    <input #libroImageInput type="file" id="imageFile" (change)="onLibroImageChange($event)" accept="image/png, image/jpeg, image/jpg" style="display: none;">
+                    <button type="button" class="btn3" (click)="selectLibroImage()">Seleccionar Archivo</button>
+                    <span *ngIf="isLibroImageSelected()" class="file-selected">Archivo seleccionado: {{ libroImageFileName }}</span>
+                    <span *ngIf="!isLibroImageSelected()" class="file-not-selected">No se ha seleccionado ningún archivo</span>
+                  </div>
+                </div>
+              </div>
+
+              <button class="btn" type="submit" [disabled]="!uploadForm.valid">Subir Libro</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section> -->
+

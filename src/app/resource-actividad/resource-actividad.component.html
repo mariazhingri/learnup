@@ -1,0 +1,90 @@
+
+
+<!-- ACTIVIDADES SECTION START -->
+<section #actividadSection class="about" *ngIf="mostrarActividades">
+
+  <!-- START FILTER -->
+  <div class="filtro">
+    <div class="search-wrapper">
+      <input type="text" placeholder="Buscar..." [(ngModel)]="filtroBusqueda" (keyup)="filtrarRecursos()">
+      <i class="fas fa-search"></i>
+    </div>
+  </div>
+  <!-- END FILTER -->
+
+  
+  <section class="about">
+    <div class="contenedor-recursos" *ngIf="!backendProblem && !internetProblem">
+    </div>
+
+    <div class="contenedor-mensaje" *ngIf="backendProblem && !internetProblem">
+      <p style="font-size: 1.2rem; font-weight: 800; color: var(--pink);">Hay un problema con la conexión al servidor. Por favor, inténtalo de nuevo más tarde.</p>
+    </div>
+
+    <div class="contenedor-mensaje" *ngIf="!backendProblem && internetProblem">
+      <p style="font-size: 1.2rem; font-weight: 800; color: var(--pink);">Hay un problema con la conexión a internet. Por favor, verifica tu conexión e inténtalo de nuevo.</p>
+    </div>
+  </section>
+
+
+  <h1 class="title">{{ nivel }} <span>{{ materia }}</span></h1>
+  <div *ngIf="actividadesMostradas.length === 0">
+    <p style="font-size: 1rem;">El recurso no existe en la base de datos</p>
+  </div>
+  <div *ngIf="actividades.length > 0; else noActividadesMessage">
+    <div class="row" *ngFor="let actividad of actividadesPaginadas">
+      <div class="img-container">
+        <img *ngIf="isLocalImageActividad(actividad.imagen_url); else externalImage"
+             [src]="getFullImageUrlActividad(actividad.imagen_url)"
+             alt="Imagen de la actividad"
+             width="100%"
+             height="300"
+             style="border-radius: 1.5rem;">
+        <ng-template #externalImage>
+          <img *ngIf="isExternalImageActividad(actividad.imagen_url)" [src]="actividad.imagen_url" alt="Imagen de la actividad" width="100%" height="300" style="border-radius: 1.5rem;">
+        </ng-template>
+      </div>
+      <div class="content">
+        <h3>{{ actividad.titulo }}</h3>
+        <p>{{ actividad.descripcion }}</p>
+        <h3 *ngIf="isLoggedIn()">
+          <a *ngIf="isPdfActividad(actividad.url)" [href]="getFullPdfUrlActividad(actividad.url)" target="_blank">
+            <span class="link-span">Resolver</span></a>
+        </h3>
+        <h3 *ngIf="isLoggedIn()">
+          <a *ngIf="!isPdfActividad(actividad.url)" [href]="actividad.url" target="_blank">
+            <span class="link-span">Resolver</span> </a>
+        </h3>
+        <div class="icons" *ngIf="isLoggedIn()">
+          <a href="#" class="fa-solid fa-bookmark" title="Guardar" (click)="openDialog($event)"></a>
+          <a
+            [href]="isPdfActividad(actividad.url) ? getFullPdfUrlActividad(actividad.url) : actividad.url"
+            (click)="handleLinkClickActividad($event, actividad.url)"
+            target="_blank"
+            class="fa-solid fa-circle-down"
+            [attr.title]="isPdfActividad(actividad.url) ? '' : 'Descargar'">
+            <span class="link-span">{{ isPdfActividad(actividad.url) ? '' : '' }}</span>
+          </a>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="pagination-container">
+    <div class="pagination">
+      <button class="btn2" (click)="irPrimeraPaginaActividades(); scrollToTop();" [disabled]="paginaActualActividades === 1">Ir al inicio</button>
+      <button class="btn2" (click)="paginaAnteriorActividades(); scrollToTop();" [disabled]="paginaActualActividades === 1">Anterior</button>
+      <span>Página {{ paginaActualActividades }} de {{ numeroTotalPaginasActividades }}</span>
+      <button class="btn2" (click)="paginaSiguienteActividades(); scrollToTop();" [disabled]="paginaActualActividades === numeroTotalPaginasActividades">Siguiente</button>
+      <button class="btn2" (click)="irUltimaPaginaActividades(); scrollToTop();" [disabled]="paginaActualActividades === numeroTotalPaginasActividades">Ir al final</button>
+    </div>
+  </div>
+  <ng-template #noActividadesMessage>
+    <p style="font-size: 1rem; text-transform: none !important;">No se encontraron actividades para esta materia.</p>
+  </ng-template>
+</section>
+<!-- ACTIVIDADES SECTION END -->
+
+
+

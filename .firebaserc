@@ -1,0 +1,11 @@
+{
+  "projects": {
+    "default": "learnup-eb884",
+    "y": "recursos-nivel-materia-app",
+    "learnup": "recursos-nivel-materia-app",
+    "learup": "learnup-eb884"
+  },
+  "targets": {},
+  "etags": {},
+  "dataconnectEmulatorConfig": {}
+}

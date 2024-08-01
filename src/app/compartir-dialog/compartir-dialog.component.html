@@ -1,0 +1,11 @@
+<h2 mat-dialog-title>Compartir Colección</h2>
+<div mat-dialog-content>
+  <p>Copia el siguiente enlace para compartir:</p>
+  <mat-form-field>
+    <input matInput [value]="shareLink" readonly>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="close()">Cerrar</button>
+  <button mat-button (click)="copyLink()">Copiar Enlace</button>
+</div>

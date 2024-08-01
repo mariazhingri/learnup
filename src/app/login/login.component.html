@@ -1,0 +1,50 @@
+<html>
+    <body>
+        <!-- <img class="img-chicoSkate" src="/assets/img/utilies_escolares.PNG" alt=""> -->
+        <!-- <img class="img-chicoSkate" src="/assets/img/chico2-skate.jpg" alt="">  -->
+        <img class="img-utiles_1" src="/assets/img/utilies_1.jpg" alt="">
+        <img class="img-utiles_2" src="/assets/img/utilies_2.jpg" alt="">
+        <img class="img-utiles_3" src="/assets/img/utilies_3.jpg" alt="">
+        <img class="img-utiles_4" src="/assets/img/utilies_4.jpeg" alt="">
+        <img class="img-utiles_5" src="/assets/img/utilies_5.jpg" alt="">
+        <img class="img-utiles_6" src="/assets/img/utilies_6.png" alt="">
+        <img class="img-utiles_7" src="/assets/img/utilies_7.png" alt="">
+        <img class="img-utiles_8" src="/assets/img/utilies_8.png" alt="">
+        <form class="contenedor" [formGroup]="FormularioLogin">
+            <img class="img-libroabierto" src="/assets/img/libro-abierto.png" alt="">
+            <h1 class="letras-iniciar">INICIAR SESIÓN</h1>
+            <div class="contenedor-inputs">
+                <div class="contenedor-datos-usuario">
+                    <div class="input-icon">
+                        <input formControlName="correo"type="text" required placeholder="Correo" name="correo">
+                        <div class="vertical-line"></div>
+                        <i class="fa-solid fa-envelope"></i>
+
+                    </div>
+                    <div class="contenedor-error" *ngIf="f['correo'].touched && f['correo'].invalid">
+                        <div class="error" *ngIf="f['correo'].errors?.['required']">* Correo es requerido.</div>
+                        <div class="error" *ngIf="f['correo'].errors?.['email']">* Correo no es válido.</div>
+                    </div>
+                </div>
+
+                <div class="contenedor-datos-usuario">
+                    <div class="input-icon">
+                        <input formControlName="password" type="password" required placeholder="Contraseña" name="password">
+                        <div class="vertical-line"></div>
+                        <i class="fa-solid fa-lock"></i>
+                    </div>
+                    <div class="contenedor-error" *ngIf="f['password'].touched && f['password'].invalid">
+                        <div class="error" *ngIf="f['password'].errors?.['required']">* Contraseña es requerida.</div>
+                    </div>
+                </div>
+
+                <button class="btn-ingresar" type="button" (click)="onSubmit()">Ingresar</button>
+
+                <div class="contenedor-registrar">
+                    <span class="letras-registrar">No tienes cuenta? </span>
+                    <button class="btn-registro" type="button" (click)="navigateToRegister()">Registrarse</button>
+                </div>
+            </div>
+        </form>
+    </body>
+</html>

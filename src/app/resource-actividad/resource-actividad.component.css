@@ -1,0 +1,272 @@
+
+section {
+  font-size: 62.5%;
+  padding: 2rem 9%;
+}
+
+
+/* Estilos de los botones */
+.btn2 {
+  margin: 1rem;
+  display: inline-block;
+  padding:.5rem 3.5rem;
+  background: var(--pink);
+  color: var(--white-suit);
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 5rem;
+}
+
+.btn2:hover {
+  background: var(--black-suit);
+}
+
+
+.icons a{
+  display: inline-block;
+  height: 2.2rem;
+  width: 2.2rem;
+  margin: .2rem 1rem .2rem 0;
+  margin-left: 0.2rem;
+  text-align: center;
+  line-height: 2.2rem;
+  border-radius: 2rem;
+  color: var(--light-gray);
+  font-size: 1.2rem;
+  transition: all 0.5s linear;
+}
+
+.icons a:hover{
+  color:var(--white-suit);
+  background-color: var(--pink);
+}
+
+
+.title {
+  display: flex;
+  align-items: center;
+  font-size: 1.2rem;
+  margin-bottom: 2.5rem;
+  padding: .8rem 0;
+  border-block: 0.1rem solid rgba(0, 0, 0, .1);
+  color: var(--black-suit);
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+}
+
+.title span {
+  color: var(--pink);
+  padding-left: .7rem;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+}
+
+.title a {
+  margin-left: auto;
+  color: var(--dark-gray);
+  font-size: 1rem;
+}
+
+.title a:hover {
+  color: var(--pink);
+}
+
+
+
+
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.pagination {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.pagination button{
+  margin: 0.5rem;
+}
+
+.pagination span {
+  margin: 0.5rem;
+  font-size: 1rem;
+  padding: .7rem;
+}
+
+
+@media screen and (max-width: 668px) {
+  .pagination {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .pagination button,
+  .pagination span {
+    display: block;
+    margin: 0.5rem 0;
+    width: 100%;
+    max-width: 300px;
+    text-align: center;
+  }
+}
+
+
+
+
+.filtro {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.search-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 30rem;
+
+  /* margin-left: auto;
+  margin-right: 0; */
+}
+
+.search-wrapper input {
+  width: 100%;
+  padding: 0.5rem 2.5rem 0.5rem 1rem;
+  font-size: 1rem;
+  border-radius: 3rem;
+  border: 0.1rem solid rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  margin: 1rem;
+}
+
+.search-wrapper i {
+  position: absolute;
+  font-size: 1rem;
+  top: 50%;
+  right: 1rem;
+  transform: translateY(-50%);
+  color: var(--pink);
+  pointer-events: none;
+}
+
+@media screen and (max-width: 668px) {
+  .filtro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .search-wrapper {
+    width: calc(100% - 4rem);
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  .search-wrapper input {
+    padding: 0.5rem 2.5rem 0.5rem 1rem;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .search-wrapper i {
+    right: 1rem;
+    transform: translateY(-50%);
+  }
+}
+
+
+
+
+
+/* About */
+.about .row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  padding: 1rem 1rem;
+  padding-bottom: 1rem;
+  border: .3rem solid #fff;
+  box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .1);
+  border-radius: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.about .row .recurso-container {
+  flex: 1 1 30rem;
+  position: relative;
+}
+
+.about .row .recurso-container video {
+  width: 100%;
+  border: .3rem solid white;
+  border-radius: .5rem;
+  box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .1);
+  height: 100%;
+  object-fit: cover;
+}
+
+.about .row .recurso-container h3 {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.5rem;
+  background: white;
+  width: 100%;
+  padding: 1rem 2rem;
+  text-align: center;
+  mix-blend-mode: screen;
+}
+
+.about .row .img-container {
+  flex: 0 0 auto;
+  position: relative;
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 1.5rem;
+}
+
+.about .row .img-container img {
+  width: 100%;
+  height: 300;
+  border-radius: .5rem;
+  box-shadow: 0 .5rem 1rem rgba(0,0,0,.1);
+  object-fit: cover;
+}
+
+.about .row .content{
+  flex:1 1 40rem;
+}
+
+.about .row .content h3{
+  text-transform: none !important;
+  font-size: 1.5rem;
+  color:var(--light-gray);
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+}
+
+.about .row .content p{
+  text-transform: none !important;
+  font-size: .9rem;
+  color: var(--black);
+  padding:.3rem 0;
+  padding-top: 1rem;
+  line-height: 1.5;
+}
+
+.link-span {
+  font-size: 1.2rem;
+  color:var(--dark-gray);
+}
+
+.link-span:hover {
+  color:var(--pink);
+  transition: text-decoration 0.3s ease;
+  text-decoration: underline;
+}

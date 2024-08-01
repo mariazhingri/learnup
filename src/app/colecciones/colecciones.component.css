@@ -1,0 +1,48 @@
+h2{
+    background: #f0e0e9;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+mat-dialog-actions{
+    display: block;
+}
+
+
+mat-dialog-actions button:hover{
+    background: #fd90abc2;
+}
+
+mat-form-field{
+    display: flex;
+    flex-direction: column;
+}
+
+.listaN{
+    margin-top: 10%;
+}
+
+mat-label{
+    color: violet;
+}
+
+/* colecciones.component.css */
+.listaN {
+    width: 100%;
+}
+
+mat-dialog-content {
+    margin-top: 20px;
+}
+  
+mat-dialog-content div {
+    margin-bottom: 10px;
+}
+
+h3{
+    color: chocolate;
+}  
+
+mat-dialog-content button {
+    background: #fd90abc2;
+}

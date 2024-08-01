@@ -1,0 +1,309 @@
+
+*{
+    text-transform: none !important;
+}
+body{
+    align-items: center;
+    margin-top: 15%;
+    margin-left: 35%;
+    margin-right: 34%;
+}
+.contenedor{
+    box-shadow:  .1rem .1rem 2rem 1rem rgba(0,0,0,.1);
+    backdrop-filter: blur(.1rem);
+    -webkit-backdrop-filter: blur(.1rem);
+    /*background: #495057;*/
+    background: #edede9;
+    text-align: center;
+    align-items: center;
+    padding: 5%;
+    border-radius: 10PX;
+    margin: 0%;
+    z-index: 100;
+}
+/*---------IMAGINES*/
+.img-utiles_1{
+    position: absolute;
+    width: 25%;
+    left: 5%;
+    top: 75px;
+    transform: rotate(-10deg);
+}
+.img-utiles_3{
+    position: absolute;
+    width: 25%;
+    left: 5%;
+    top: 460px;
+    transform: rotate(5deg);
+}
+.img-utiles_2{
+    position: absolute;
+    width: 25%;
+    right: 5%;
+    top: 75px;
+    transform: rotate(-10deg);
+}
+.img-utiles_4{
+    position: absolute;
+    width: 25%;
+    right: 5%;
+    top: 60%;
+    transform: rotate(5deg);
+}
+.img-utiles_5{
+    position: absolute;
+    width: 25%;
+    top:100%;
+}
+.img-utiles_6{
+    position: absolute;
+    width: 25%;
+    top:112%;
+    left: 8%;
+}
+.img-utiles_7{
+    position: absolute;
+    width: 30%;
+    top:9%;
+
+}
+.img-utiles_8{
+    position: absolute;
+    width: 35%;
+    top:109%;
+    right: 5%;
+    transform: rotate(5deg);
+}
+.img-libroabierto{
+    width: 30%;
+}
+/*--------------------*/
+h1{
+    /*color: #adb5bd;*/
+    color: #000814;
+    font-size: 25px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+.contenedor-inputs{
+    padding: 7%;
+    border-radius: 10px;
+}
+/*------------INPUT--------------*/
+input{
+    width: 100%;
+    outline: none;
+    font-size: 1rem;
+    padding: 0 60px;
+    height: 40px;
+    border-radius: 10px;
+    border: 2px solid #000814;
+    background: transparent;
+}
+.input-icon{
+    width: 100%;
+    position: relative;
+}
+.input-icon i{
+    position: absolute;
+    color: #000814;
+    left: 7%;
+    bottom: 30%;
+    font-size: 1rem;
+}
+.input-icon .vertical-line {
+    width: 1.5px; /* Grosor de la línea */
+    height: 22px; /* Altura de la línea */
+    background-color: var(--medium-gray); /* Color de la línea */
+    margin-left: 0px; /* Espacio desde el borde izquierdo del contenedor */
+    position: absolute;
+    left: 15%; /* Ajusta la posición de la línea */
+    bottom: 21%;
+  }
+/* Estilo para cuando hay un error */
+.contenedor-error {
+    bottom: -40px;
+    left: 0;
+  }
+.error {
+    color: #e63946;
+    font-size: 0.9rem;
+    margin-left: 5%;
+    text-align: left;
+  }
+/* Estilo para cuando el input está enfocado */
+input:focus {
+    color: #000814; /* Cambia el color del texto cuando el input está enfocado */
+    border-color: #4a4e69; /* Cambia el color del borde cuando el input está enfocado */
+}
+/**-----------CONTENEDOR DE LOS INPUT DE CORREO Y CONTRASEÑA-----*/
+.contenedor-datos-usuario {
+    height: 30px;
+    margin-bottom: 30px;
+}
+/*-------------no tienes cuenta------*/
+.contenedor-registrar{
+    margin-left: 1%;
+    margin-top: 5%;
+    display: flex;
+    margin-bottom: 5%;
+}
+.letras-registrar {
+    margin-left: 2%;
+    color: #000814;
+}
+.btn-registro{
+    margin-left: 2%;
+    color: #fca311;
+    text-decoration: underline;
+    background: transparent;
+    cursor: pointer;
+}
+
+/*-----------LETRAS--------*/
+.btn-ingresar{
+    background: #000814;
+    color: white;
+    font-weight: bold;
+    padding: 2%;
+    margin-top: 7%;
+    width: 100%;
+    border-radius: 20px;
+    cursor: pointer;
+}
+/*mensaje de erro de inicion de sesion*/
+.custom-snackbar {
+    background-color: #47ff22; /* Color de fondo */
+    color: #ffffff; /* Color del texto */
+    font-size: 16px; /* Tamaño de la fuente */
+    /* Otros estilos personalizados */
+  }
+
+  .custom-snackbar .mat-simple-snackbar-action {
+    color: #ffd600; /* Color del botón de acción */
+  }
+
+/* Media Queries */
+@media (max-width:963.39px){
+    body{
+        margin-left: 35%;
+        margin-right: 30%;
+    }
+    h1{
+        font-size: 1.5rem;
+    }
+    /*---------IMAGINES*/
+    .img-utiles_1{
+        left: 1%;
+    }
+    .img-utiles_3{
+        left: 1%;
+        top: 52%;
+    }
+    .img-utiles_2{
+        right: 1%;
+        top: 10%;
+    }
+    .img-utiles_4{
+        width: 25%;
+        right: 1%;
+        top: 52%;
+        transform: rotate(5deg);
+    }
+    .img-utiles_5{
+        width: 25%;
+        top:95%;
+        left: 36%;
+    }
+    .img-utiles_6{
+        top:95%;
+        left: 3%;
+    }
+    .img-utiles_7{
+        top:7%;
+        left: 36%;
+    }
+    .img-utiles_8{
+        top:95%;
+        right: 3%;
+        transform: rotate(-7deg);
+    }
+    .img-libroabierto{
+        width: 30%;
+}
+    .input-icon .vertical-line {
+        left: 25%; /* Ajusta la posición de la línea */
+    }
+    .input-icon .vertical-line {
+        left: 18%; /* Ajusta la posición de la línea */
+      }
+}
+@media (max-width:868px){
+    body{
+        margin-left: 28%;
+        margin-right: 28%;
+    }
+    h1{
+        font-size: 1.5rem;
+    }
+    /*---------IMAGINES*/
+    .img-utiles_1{
+        left: 1%;
+    }
+    .img-utiles_3{
+        left: 1%;
+        top: 45%;
+    }
+    .img-utiles_2{
+        right: 1%;
+        top: 10%;
+    }
+    .img-utiles_4{
+        width: 25%;
+        right: 1%;
+        top: 45%;
+        transform: rotate(5deg);
+    }
+    .img-utiles_5{
+        width: 25%;
+        top:90%;
+        left: 36%;
+    }
+    .img-utiles_6{
+        top:85%;
+        left: 3%;
+    }
+    .img-utiles_7{
+        top:7%;
+        left: 36%;
+    }
+    .img-utiles_8{
+        top:88%;
+        right: 3%;
+        transform: rotate(-7deg);
+    }
+    .img-libroabierto{
+        width: 30%;
+}
+    .input-icon .vertical-line {
+        left: 25%; /* Ajusta la posición de la línea */
+    }
+    .input-icon .vertical-line {
+        left: 18%; /* Ajusta la posición de la línea */
+      }
+}
+@media (max-width:450px){
+    h1{
+        font-size: 1rem;
+    }
+    .input-icon .vertical-line {
+        width: 1.5px; /* Grosor de la línea */
+        height: 22px; /* Altura de la línea */
+        background-color: var(--medium-gray); /* Color de la línea */
+        margin-left: 0px; /* Espacio desde el borde izquierdo del contenedor */
+        position: absolute;
+        left: 25%; /* Ajusta la posición de la línea */
+        bottom: 21%;
+      }
+
+}

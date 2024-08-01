@@ -1,0 +1,18 @@
+h2{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-weight: bold;
+    background-color:  #f0e0e9;
+}
+
+p{
+    color: black;
+}
+
+button{
+    background-color: pink;
+    margin-right: 20px;
+}
+
+mat-form-field{
+    width: 100%;
+}

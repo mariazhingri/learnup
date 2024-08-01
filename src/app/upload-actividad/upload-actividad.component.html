@@ -1,0 +1,240 @@
+
+
+<!-- START SECCIÓN DE SUBIR ACTIVIDADES -->
+<section #activitySection class="about" *ngIf="mostrarActividades">
+  <h1 class="title">Subir <span>Actividad</span></h1>
+
+  <div class="row">
+    <div class="content">
+      <div class="box">
+        <h2>Detalles Principales</h2>
+        <form #uploadForm="ngForm" (ngSubmit)="subirActividad(uploadForm)" autocomplete="off">
+          <div class="input-container">
+            <label for="activityTitulo">Título de la actividad:</label>
+            <div class="input-wrapper">
+              <input type="text" id="titulo" name="titulo" required [(ngModel)]="activityTitle" #titulo="ngModel" placeholder="Ingrese el título de la actividad" autocomplete="off" maxlength="100">
+            </div>
+          </div>
+
+          <div class="input-container">
+            <label for="activityDescription">Descripción de la actividad:</label>
+            <div class="input-wrapper">
+              <textarea id="activityDescription" [(ngModel)]="activityDescription" name="activityDescription" required placeholder="Ingrese la descripción de la actividad" autocomplete="off" maxlength="500"></textarea>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Detalles Adicionales en otra columna -->
+    <div class="content adicionales">
+      <div class="box">
+        <h2>Detalles Adicionales</h2>
+        <form #uploadForm="ngForm" (ngSubmit)="subirActividad(uploadForm)" autocomplete="off">
+          <div class="input-group">
+            <div class="input-container">
+              <label for="nivelInput">Nivel educativo:</label>
+              <select id="nivelInput" [(ngModel)]="selectedNivel" (change)="nivelSelected()" name="selectedNivel" required>
+                <option value="" disabled selected>Seleccionar nivel</option>
+                <option value="Preescolar">Preescolar</option>
+                <option value="Primaria">Primaria</option>
+                <option value="Secundaria">Secundaria</option>
+                <option value="Bachillerato">Bachillerato</option>
+              </select>
+            </div>
+
+            <div class="input-container">
+              <label for="materiaInput">Materia:</label>
+              <select id="materiaInput" [(ngModel)]="selectedMateriaId" name="selectedMateriaId" required (change)="materiaSelected($event)">
+                <option [value]="null">{{ defaultMateriaText }}</option>
+                <option *ngFor="let materia of selectedNivelMaterias" [value]="materia.materia_id">{{ materia.nombre }}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="input-group">
+            <div class="input-container">
+              <label for="activityInput">Opción para actividad:</label>
+              <select id="activityInput" [(ngModel)]="selectedActivityInput" name="selectedActivityInput" required>
+                <option value="url">URL de la actividad</option>
+                <option value="file">Archivo de actividad (PDF)</option>
+              </select>
+            </div>
+
+            <div class="input-container" *ngIf="selectedActivityInput === 'url'">
+              <label for="activityUrl">URL de la actividad</label>
+              <div class="input-wrapper">
+                <input type="url" id="activityUrl" [(ngModel)]="activityUrl" name="activityUrl" placeholder="Ingrese la URL de la actividad" autocomplete="off">
+              </div>
+            </div>
+
+            <div class="input-container" *ngIf="selectedActivityInput === 'file'">
+              <label for="activityFile">Archivo de actividad (PDF)</label>
+              <div class="input-wrapper">
+                <input #activityFileInput type="file" id="activityFile" (change)="onActivityFileChange($event)" accept="application/pdf" style="display: none;">
+                <button type="button" class="btn" (click)="selectActivityFile()">Seleccionar Archivo</button>
+                <span *ngIf="isActivityFileSelected()" class="file-selected">Archivo seleccionado: {{ selectedActivityFileName }}</span>
+                <span *ngIf="!isActivityFileSelected()" class="file-not-selected">No se ha seleccionado ningún archivo</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="input-group">
+            <div class="input-container">
+              <label for="imageInput">Imagen de la actividad:</label>
+              <select id="imageInput" [(ngModel)]="selectedImageInput" name="selectedImageInput" required>
+                <option value="url">URL de la imagen</option>
+                <option value="file">Archivo de imagen (PNG, JPG, JPEG)</option>
+              </select>
+            </div>
+
+            <div class="input-container" *ngIf="selectedImageInput === 'url'">
+              <label for="imageUrl">URL de la imagen</label>
+              <div class="input-wrapper">
+                <input type="url" id="imageUrl" [(ngModel)]="activityImageUrl" name="imageUrl" placeholder="Ingrese la URL de la imagen" autocomplete="off">
+              </div>
+            </div>
+
+            <div class="input-container" *ngIf="selectedImageInput === 'file'">
+              <label for="imageFile">Archivo de imagen (PNG, JPG, JPEG)</label>
+              <div class="input-wrapper">
+                <input #activityImageInput type="file" id="imageFile" (change)="onActivityImageChange($event)" accept="image/png, image/jpeg, image/jpg" style="display: none;">
+                <button type="button" class="btn" (click)="selectActivityImage()">Seleccionar archivo</button>
+                <span *ngIf="isActivityImageSelected()" class="file-selected">Archivo seleccionado: {{ activityImageFileName }}</span>
+                <span *ngIf="!isActivityImageSelected()" class="file-not-selected">No se ha seleccionado ninguna iamgen</span>
+              </div>
+            </div>
+          </div>
+
+          <button class="btn" type="submit" [ngClass]="{'btn-disabled':!uploadForm.valid}" [disabled]="!uploadForm.valid">Subir actividad</button>
+          <!-- <button class="btn" type="submit" [disabled]="!uploadForm.valid">Subir actividad</button> -->
+          <div *ngIf="!uploadForm.valid ||!isDetailsFilled()" class="error-message">
+            <br>
+            <p style="text-transform: none !important; color: var(--pink);">Por favor, complete todos los campos antes de subir la actividad.</p>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- END SECCIÓN DE SUBIR ACTIVIDADES -->
+
+
+
+
+
+
+
+<!-- <section #activitySection class="about" *ngIf="mostrarActividades">
+  <h1 class="title">Subir <span>Actividad</span></h1>
+
+  <div class="row">
+    <div class="content">
+      <div class="box">
+        <h2>Detalles principales</h2>
+        <form #uploadForm="ngForm" (ngSubmit)="subirActividad(uploadForm)" autocomplete="off">
+          <div class="input-container">
+            <label for="activityTitulo">Título de la actividad:</label>
+            <div class="input-wrapper">
+              <input type="text" id="titulo" name="titulo" required [(ngModel)]="activityTitle" #titulo="ngModel" placeholder="Ingrese el título de la actividad" autocomplete="off" maxlength="100">
+            </div>
+          </div>
+
+          <div class="input-container">
+            <label for="activityDescription">Descripción de la actividad</label>
+            <div class="input-wrapper">
+              <textarea id="activityDescription" [(ngModel)]="activityDescription" name="activityDescription" required placeholder="Ingrese la descripción de la actividad" autocomplete="off" maxlength="500"></textarea>
+            </div>
+          </div>
+
+          <div class="content adicionales">
+            <div class="box">
+              <h2>Detalles adicionales</h2>
+
+              <div class="input-group">
+                <div class="input-container">
+                  <label for="nivelInput">Nivel Educativo:</label>
+                  <select id="nivelInput" [(ngModel)]="selectedNivel" (change)="nivelSelected()" name="selectedNivel" required>
+                    <option value="" disabled selected>Seleccionar nivel</option>
+                    <option value="Preescolar">Preescolar</option>
+                    <option value="Primaria">Primaria</option>
+                    <option value="Secundaria">Secundaria</option>
+                    <option value="Bachillerato">Bachillerato</option>
+                  </select>
+                </div>
+
+                <div class="input-container">
+                  <label for="materiaInput">Materia:</label>
+                  <select id="materiaInput" [(ngModel)]="selectedMateriaId" name="selectedMateriaId" required (change)="materiaSelected($event)">
+                    <option [value]="null">{{ defaultMateriaText }}</option>
+                    <option *ngFor="let materia of selectedNivelMaterias" [value]="materia.materia_id">{{ materia.nombre }}</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="input-group">
+                <div class="input-container">
+                  <label for="activityInput">Opción para Actividad:</label>
+                  <select id="activityInput" [(ngModel)]="selectedActivityInput" name="selectedActivityInput" required>
+                    <option value="url">URL de la Actividad</option>
+                    <option value="file">Archivo de Actividad (PDF)</option>
+                  </select>
+                </div>
+
+                <div class="input-container" *ngIf="selectedActivityInput === 'url'">
+                  <label for="activityUrl">URL de la Actividad</label>
+                  <div class="input-wrapper">
+                    <input type="url" id="activityUrl" [(ngModel)]="activityUrl" name="activityUrl" placeholder="Ingrese la URL de la actividad" autocomplete="off">
+                  </div>
+                </div>
+
+                <div class="input-container" *ngIf="selectedActivityInput === 'file'">
+                  <label for="activityFile">Archivo de Actividad (PDF)</label>
+                  <div class="input-wrapper">
+                    <input #activityFileInput type="file" id="activityFile" (change)="onActivityFileChange($event)" accept="application/pdf" style="display: none;">
+                    <button type="button" class="btn3" (click)="selectActivityFile()">Seleccionar Archivo</button>
+                    <span *ngIf="isActivityFileSelected()" class="file-selected">Archivo seleccionado: {{ selectedActivityFileName }}</span>
+                    <span *ngIf="!isActivityFileSelected()" class="file-not-selected">No se ha seleccionado ningún archivo</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="input-group">
+                <div class="input-container">
+                  <label for="imageInput">Imagen de la Actividad:</label>
+                  <select id="imageInput" [(ngModel)]="selectedImageInput" name="selectedImageInput" required>
+                    <option value="url">URL de la Imagen</option>
+                    <option value="file">Archivo de Imagen (PNG, JPG, JPEG)</option>
+                  </select>
+                </div>
+
+                <div class="input-container" *ngIf="selectedImageInput === 'url'">
+                  <label for="imageUrl">URL de la Imagen</label>
+                  <div class="input-wrapper">
+                    <input type="url" id="imageUrl" [(ngModel)]="activityImageUrl" name="imageUrl" placeholder="Ingrese la URL de la imagen" autocomplete="off">
+                  </div>
+                </div>
+
+                <div class="input-container" *ngIf="selectedImageInput === 'file'">
+                  <label for="imageFile">Archivo de Imagen (PNG, JPG, JPEG)</label>
+                  <div class="input-wrapper">
+                    <input #activityImageInput type="file" id="imageFile" (change)="onActivityImageChange($event)" accept="image/png, image/jpeg, image/jpg" style="display: none;">
+                    <button type="button" class="btn3" (click)="selectActivityImage()">Seleccionar Archivo</button>
+                    <span *ngIf="isActivityImageSelected()" class="file-selected">Archivo seleccionado: {{ activityImageFileName }}</span>
+                    <span *ngIf="!isActivityImageSelected()" class="file-not-selected">No se ha seleccionado ningún archivo</span>
+                  </div>
+                </div>
+              </div>
+
+              <button class="btn" type="submit" [disabled]="!uploadForm.valid">Subir Actividad</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+
+

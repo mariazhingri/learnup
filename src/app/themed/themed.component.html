@@ -1,0 +1,166 @@
+
+
+<!-- PREESCOLAR SECTION START -->
+
+<section id="preescolar-section" class="blogs" *ngIf="mostrarPreescolar">
+  <h1 class="title"> materias de <span>preescolar</span> <a> </a> </h1>
+
+  <div class="contenedor-recursos" *ngIf="!backendProblem && !internetProblem">
+  </div>
+
+  <div class="contenedor-mensaje" *ngIf="backendProblem && !internetProblem">
+    <p style="font-size: 1.2rem; font-weight: 800; color: var(--pink);">Hay un problema con la conexión al servidor. Por favor, inténtalo de nuevo más tarde.</p>
+  </div>
+
+  <div class="contenedor-mensaje" *ngIf="!backendProblem && internetProblem">
+    <p style="font-size: 1.2rem; font-weight: 800; color: var(--pink);">Hay un problema con la conexión a internet. Por favor, verifica tu conexión e inténtalo de nuevo.</p>
+  </div>
+
+  <div class="box-container">
+    <div class="box" *ngFor="let materia of materiasPreescolar">
+      <div class="image">
+        <img [src]="materia.imagen" [alt]="materia.nombre">
+      </div>
+
+      <div class="content">
+        <div class="icons">
+          <a><i class="fas fa-calendar"></i>{{ materia.fecha | date:'dd MMMM yyyy' }}</a>
+          <a><i class="fas fa-user"></i>{{ materia.autor }}</a>
+        </div>
+
+        <h3>{{ materia.nombre }}</h3>
+        <p>{{ materia.descripcion }}</p>
+        <a (click)="irAMenuRecursos(materia.materia_id); scrollToTop()" class="btn2">Ver recursos</a>
+        <!-- <a (click)="irAMenuRecursos(materia.id, 'Preescolar', materia.nombre); scrollToTop()" class="btn2">Ver recursos</a> -->
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PREESCOLAR SECTION END-->
+
+
+
+
+<!-- PRIMARIA SECTION START -->
+
+<section id="primaria-section" class="blogs" *ngIf="mostrarPrimaria">
+  <h1 class="title"> materias de <span>primaria</span> <a> </a> </h1>
+
+  <div class="contenedor-recursos" *ngIf="!backendProblem && !internetProblem">
+  </div>
+
+  <div class="contenedor-mensaje" *ngIf="backendProblem && !internetProblem">
+    <p style="font-size: 1.2rem; font-weight: 800; color: var(--pink);">Hay un problema con la conexión al servidor. Por favor, inténtalo de nuevo más tarde.</p>
+  </div>
+
+  <div class="contenedor-mensaje" *ngIf="!backendProblem && internetProblem">
+    <p style="font-size: 1.2rem; font-weight: 800; color: var(--pink);">Hay un problema con la conexión a internet. Por favor, verifica tu conexión e inténtalo de nuevo.</p>
+  </div>
+
+  <div class="box-container">
+    <div class="box" *ngFor="let materia of materiasPrimaria">
+      <div class="image">
+        <img [src]="materia.imagen" [alt]="materia.nombre">
+      </div>
+
+      <div class="content">
+        <div class="icons">
+          <a><i class="fas fa-calendar"></i>{{ materia.fecha | date:'dd MMMM yyyy' }}</a>
+          <a><i class="fas fa-user"></i>{{ materia.autor }}</a>
+        </div>
+
+        <h3>{{ materia.nombre }}</h3>
+        <p>{{ materia.descripcion }}</p>
+        <!-- <a [routerLink]="'/menu-recurso'" (click)="scrollToTop()" class="btn2">Ver recursos</a> -->
+        <a (click)="irAMenuRecursos(materia.materia_id); scrollToTop()" class="btn2">Ver recursos</a>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRIMARIA SECTION START -->
+
+
+
+
+<!-- SECUNDARIA SECTION START -->
+
+<section id="secundaria-section" class="blogs" *ngIf="mostrarSecundaria">
+  <h1 class="title"> materias de <span>secundaria</span> <a> </a> </h1>
+
+  <div class="contenedor-recursos" *ngIf="!backendProblem && !internetProblem">
+  </div>
+
+  <div class="contenedor-mensaje" *ngIf="backendProblem && !internetProblem">
+    <p style="font-size: 1.2rem; font-weight: 800; color: var(--pink);">Hay un problema con la conexión al servidor. Por favor, inténtalo de nuevo más tarde.</p>
+  </div>
+
+  <div class="contenedor-mensaje" *ngIf="!backendProblem && internetProblem">
+    <p style="font-size: 1.2rem; font-weight: 800; color: var(--pink);">Hay un problema con la conexión a internet. Por favor, verifica tu conexión e inténtalo de nuevo.</p>
+  </div>
+
+  <div class="box-container">
+    <div class="box" *ngFor="let materia of materiasSecundaria">
+      <div class="image">
+        <img [src]="materia.imagen" [alt]="materia.nombre">
+      </div>
+
+      <div class="content">
+        <div class="icons">
+          <a><i class="fas fa-calendar"></i>{{ materia.fecha | date:'dd MMMM yyyy' }}</a>
+          <a><i class="fas fa-user"></i>{{ materia.autor }}</a>
+        </div>
+
+        <h3>{{ materia.nombre }}</h3>
+        <p>{{ materia.descripcion }}</p>
+        <a (click)="irAMenuRecursos(materia.materia_id); scrollToTop()" (click)="scrollToTop()" class="btn2">Ver recursos</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECUNDARIA SECTION START -->
+
+
+
+
+<!-- BACHILLERATO SECTION START -->
+
+<section id="bachillerato-section" class="blogs" *ngIf="mostrarBachillerato">
+  <h1 class="title"> materias de <span>bachillerato</span> <a> </a> </h1>
+
+  <div class="contenedor-recursos" *ngIf="!backendProblem && !internetProblem">
+  </div>
+
+  <div class="contenedor-mensaje" *ngIf="backendProblem && !internetProblem">
+    <p style="font-size: 1.2rem; font-weight: 800; color: var(--pink);">Hay un problema con la conexión al servidor. Por favor, inténtalo de nuevo más tarde.</p>
+  </div>
+
+  <div class="contenedor-mensaje" *ngIf="!backendProblem && internetProblem">
+    <p style="font-size: 1.2rem; font-weight: 800; color: var(--pink);">Hay un problema con la conexión a internet. Por favor, verifica tu conexión e inténtalo de nuevo.</p>
+  </div>
+
+  <div class="box-container">
+    <div class="box" *ngFor="let materia of materiasBachillerato">
+      <div class="image">
+        <img [src]="materia.imagen" [alt]="materia.nombre">
+      </div>
+
+      <div class="content">
+        <div class="icons">
+          <a><i class="fas fa-calendar"></i>{{ materia.fecha | date:'dd MMMM yyyy' }}</a>
+          <a><i class="fas fa-user"></i>{{ materia.autor }}</a>
+        </div>
+
+        <h3>{{ materia.nombre }}</h3>
+        <p>{{ materia.descripcion }}</p>
+        <a (click)="irAMenuRecursos(materia.materia_id); scrollToTop()" class="btn2">Ver recursos</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BACHILLERATO SECTION START -->
+

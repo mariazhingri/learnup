@@ -1,0 +1,236 @@
+<link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<div class="title">
+    <div class="heading">
+        <h1>
+            C o l e c c i o n e s
+        </h1>
+        <div class="subtitle"><a [routerLink]="'/recursos'" (click)="scrollToTop()"> Ver recursos</a></div>
+    </div>
+</div>
+
+<!--Colecciones-->
+<!-- <section class="colection" *ngIf="!mostrarContenido && !mostrarContenido2">
+    <div class="titulo">
+        <h3 class="Linea-efecto">Colecciones Publicas</h3>
+    </div>
+    <div class="tarjetas"> -->
+        <!--Coleccion Primavera-->
+        <!-- <div class="tarjetitas">
+            <div class="imagen">
+                <a (click)="toggleContenido()">
+                    <img src="https://img.freepik.com/free-photo/3d-cartoon-background-children_23-2150473313.jpg?t=st=1716941456~exp=1716945056~hmac=5376e4316e8a09a3d5289900f7646b5947963a6b6b7fcfe60b9a85ddcb9922b5&w=826"
+                        alt="infantil">
+                </a>
+            </div>
+            <div class="contenido">
+                <div class="letras">
+                    <h2>Primavera</h2>
+                    <span>Pública - Lista de reproducción</span>
+                    <p>By Francis </p>
+                </div>
+                <div class="icono">
+                    <span class="material-symbols-outlined" (click)="openShareDialog('Primavera')">
+                        share
+                    </span>
+                </div>
+            </div>
+        </div> -->
+         <!--Coleccion blossom-->
+        <!-- <div class="tarjetitas">
+            <div class="imagen">
+                <a (click)="toggleContenido2()">
+                    <img src="https://img.freepik.com/free-photo/multicolored-markers-painted-paper_23-2147843223.jpg?t=st=1717034818~exp=1717038418~hmac=d92ccc017204a72d8236e76c415c5353297bd63fd7191091e656c188b21768ee&w=740 " 
+                        alt="flores">
+                </a>
+            </div>
+            <div class="contenido">
+                <div class="letras">
+                    <h2>Blossom</h2>
+                    <span>Pública - Lista de reproducción</span>
+                    <p>By Diana </p>
+                </div>
+                <div class="icono">
+                    <span class="material-symbols-outlined" (click)="openShareDialog('Blossom')">
+                        share
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section> -->
+
+ <!--Coleccion Primavera-->
+<!-- <section *ngIf="mostrarContenido">
+    <div class="titulo">
+        <h3 class="Linea-efecto">Colección Primavera</h3>
+        <a (click)="toggleContenido()">Volver</a>
+    </div>
+    <div class="tarjetas">
+        <div class="new-content">
+            <div class="cartitas">
+                <div *ngIf="actividades.length > 0; else noActividadesMessage" class="card-container">
+                    <div class="row" *ngFor="let actividad of actividades" class="card">
+                            <div class="img-container">
+                                <img [src]="actividad.imagen_url" alt="Imagen de la actividad"  width="100%" height="300" style="border-radius: 1.5rem;">
+                            </div>
+                            <div class="content">
+                                <h3>{{ actividad.titulo }}</h3>
+                                <p>{{ actividad.descripcion }}</p>
+                                <h2><a [href]="actividad.url" target="_blank">Resolver</a></h2> 
+                                <div class="icons">
+                                    <a href="#" class="fa-solid fa-circle-down" title="Descargar"></a>
+                                </div>
+                            </div>  
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="videos.length > 0; else noVideosMessage" class="card-container">
+                <div class="row" *ngFor="let video of videos" class="card">
+                    <div class="video-container">
+                        <iframe *ngIf="getSafeUrl(video.video_id)" [src]="getSafeUrl(video.video_id)" width="100%" height="215" title="Reproductor de video de YouTube" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="border-radius: 1.5rem;"></iframe>
+                    </div>
+                    <div class="content">
+                        <h3>{{ video.titulo }}</h3>
+                        <p>{{ video.descripcion }}</p>
+                        <h2><a [href]="video.url" target="_blank">Ver Video</a></h2>
+                        <div class="icons">
+                            <a href="#" class="fa-solid fa-circle-down" title="Descargar"></a>
+                        </div>
+                    </div>       
+                </div>
+            </div>
+
+            <ng-template #noActividadesMessage>
+                <p>No hay actividades disponibles.</p>
+            </ng-template>
+
+            <ng-template #noVideosMessage>
+                <p>No hay videos disponibles.</p>
+            </ng-template>
+
+        </div>
+    </div>
+
+</section> -->
+
+
+
+<!--Colecccion Blossom-->
+<!-- <section *ngIf="mostrarContenido2" class="publicol">
+    <div class="titulo">
+        <h3 class="Linea-efecto">Colección Blossom</h3>
+        <a (click)="toggleContenido2()">Volver</a>
+    </div>
+    <div class="tarjetas">
+        <div class="new-content">
+            <div class="cartitas">
+                <div *ngIf="libros.length > 0; else noActividadesMessage" class="card-container">
+                    <div class="row" *ngFor="let libro of libros" class="card">
+                            <div class="img-container">
+                                <img [src]="libro.imagen_url" alt="Imagen de la actividad"  width="100%" height="300" style="border-radius: 1.5rem;">
+                            </div>
+                            <div class="content">
+                                <h3>{{ libro.titulo }}</h3>
+                                <p>{{ libro.descripcion }}</p>
+                                <h2><a [href]="libro.url" target="_blank">Leer</a></h2> 
+                                <div class="icons">
+                                    <a href="#" class="fa-solid fa-circle-down" title="Descargar"></a>
+                                </div>
+                            </div>  
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="videos2.length > 0; else noVideosMessage" class="card-container">
+                <div class="row" *ngFor="let video of videos2" class="card">
+                    <div class="video-container">
+                        <iframe *ngIf="getSafeUrl2(video.video_id)" [src]="getSafeUrl2(video.video_id)" width="100%" height="215" title="Reproductor de video de YouTube" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="border-radius: 1.5rem;"></iframe>
+                    </div>
+                    <div class="content">
+                        <h3>{{ video.titulo }}</h3>
+                        <p>{{ video.descripcion }}</p>
+                        <h2><a [href]="video.url" target="_blank">Ver Video</a></h2>
+                        <div class="icons">
+                            <a href="#" class="fa-solid fa-circle-down" title="Descargar"></a>
+                        </div>
+                    </div>       
+                </div>
+            </div>
+
+            <ng-template #noActividadesMessage>
+                <p>No hay actividades disponibles.</p>
+            </ng-template>
+
+            <ng-template #noVideosMessage>
+                <p>No hay videos disponibles.</p>
+            </ng-template>
+
+        </div>
+    </div>
+
+</section> -->
+
+<!--Colecciones del usuario-->
+<section class="collection" *ngIf="!mostrarContenido">
+    <div class="tarjetas">
+      <div class="tarjetitas" *ngFor="let coleccion of colecciones">
+        <div class="imagen">
+          <a (click)="verRecursos(coleccion)">
+            <img [src] ="getImagenUrl(coleccion)" alt="Imagen de la colección">
+          </a>
+        </div>
+        <div class="contenido">
+          <div class="letras">
+            <h2>{{ coleccion.nombre }}</h2>
+            <span *ngIf="coleccion.es_privado">Privada</span>
+            <span *ngIf="!coleccion.es_privado">Pública</span>
+            <p>By {{ coleccion.usuario_nombre }}</p>
+          </div>
+          <div class="icono">
+            <span class="material-symbols-outlined" (click)="openShareDialog(coleccion.nombre)">
+              share
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <section *ngIf="mostrarContenido">
+    <div class="titulo">
+      <h3 class="Linea-efecto">Colección {{ selectedColeccion.nombre }}</h3>
+      <a (click)="toggleContenido()">Volver</a>
+    </div>
+    <div class="tarjetas">
+      <div class="new-content">
+        <div class="cartitas" *ngIf="recursos.length > 0; else noRecursosMessage">
+          <div class="card-container" *ngFor="let recurso of recursos">
+            <div class="row" class="card">
+              <div class="media-container">
+                <div *ngIf="recurso.recurso_tipo === 'video'; else imageTemplate">
+                  <iframe [src]="getSafeUrl(recurso.url)" width="100%" height="300" style="border-radius: 1.5rem;" frameborder="0" allowfullscreen></iframe>
+                </div>
+                <ng-template #imageTemplate>
+                  <img [src]="recurso.image_url" alt="Imagen del recurso" width="100%" height="300" style="border-radius: 1.5rem;">
+                </ng-template>
+              </div>
+              <div class="content">
+                <h3>{{ recurso.titulo }}</h3>
+                <p>{{ recurso.descripcion }}</p>
+                <h2><a [href]="recurso.url" target="_blank">Ver más</a></h2>
+                <div class="icons">
+                  <a href="#" class="fa-solid fa-circle-down" title="Descargar"></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <ng-template #noRecursosMessage>
+          <p>No hay recursos disponibles.</p>
+        </ng-template>
+      </div>
+    </div>
+  </section>
+  

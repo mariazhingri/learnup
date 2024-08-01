@@ -1,0 +1,119 @@
+
+
+section {
+  font-size: 62.5%;
+  padding: 3.6rem 9%;
+}
+
+.heading {
+  background: url(/assets/img/heading.png) no-repeat;
+  background-size: cover;
+  background-position: center;
+  text-align: center;
+  padding-top: 10rem;
+  margin-bottom: 2rem;
+}
+
+.heading h1 {
+  color: var(--black-suit);
+  font-size: 2rem;
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+}
+
+.heading p {
+  padding-bottom: 2.5rem;
+  padding-top: .4rem;
+  font-size: 1.3rem;
+  color: var(--dark-gray);
+}
+
+.heading p a {
+  color: var(--black);
+  padding-right: .5rem;
+}
+
+.heading p a:hover {
+  color: var(--pink);
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  font-size: 1.2rem;
+  margin-bottom: 5rem;
+  padding: .8rem 0;
+  border-block: 0.1rem solid rgba(0, 0, 0, .1);
+  color: var(--black-suit);
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+}
+
+.title span {
+  color: var(--pink);
+  padding-left: .7rem;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+}
+
+.title a {
+  margin-left: auto;
+  color: var(--dark-gray);
+  font-size: 1rem;
+}
+
+.title a:hover {
+  color: var(--pink);
+}
+
+
+/* Estilos de los botones */
+.btn {
+  margin-top: 1rem;
+  display: inline-block;
+  padding:.7rem 3.5rem;
+  background: var(--pink);
+  color: var(--white-suit);
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 5rem;
+}
+
+
+.btn:hover {
+  background: var(--black-suit);
+}
+
+
+/* catergoty */
+.category .box-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+   gap: 2rem;
+}
+
+.category .box {
+  text-align: center;
+}
+
+.category .box img {
+  height: 12rem;
+}
+
+.category .box h3 {
+  font-size: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  color: var(--dark-gray);
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+}
+
+.category .box:hover h3 {
+  color: var(--pink);
+}
+
+.category .box:hover{
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.129);
+  border-radius: 2rem;
+}

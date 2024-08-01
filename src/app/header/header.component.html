@@ -1,0 +1,36 @@
+<!-- START HEADER -->
+
+<header class="header">
+  <input type="checkbox" id="toggler">
+  <label for="toggler" class="fas fa-bars" title="Toggle Navigation"></label>
+  <a routerLink="/" class="logo">Learn<span>Up</span></a>
+
+  <nav class="navbar">
+    <a routerLink="/" [class.active]="isActiveLink(0)" (click)="setActiveLink(0)">Inicio</a>
+    <a routerLink="/colecciones" [class.active]="isActiveLink(1)" (click)="setActiveLink(1)">Colecciones</a>
+    <a routerLink="/nivel" [class.active]="isActiveLink(2)" (click)="setActiveLink(2)">Categoría</a>
+    <a routerLink="/recursos" [class.active]="isActiveLink(3)" (click)="setActiveLink(3)">Recursos</a>
+    <a routerLink="/menu-subir" *ngIf="userInfo?.tipocuenta === 'Profesor'" [class.active]="isActiveLink(4)" (click)="setActiveLink(4)">Subir recursos</a>
+    <!-- <a routerLink="/menu-subir" [class.active]="isActiveLink(4)" (click)="setActiveLink(4)">Subir recursos</a> -->
+  </nav>
+
+  <div class="usuario-logeo" *ngIf="userInfo">
+    <!-- <span>{{ userInfo.tipocuenta }}, {{ userInfo.username }}</span> -->
+    <span *ngIf="userInfo"> {{ userInfo.tipocuenta }}, {{ userInfo.username }}</span>
+  </div>
+
+  <div class="icons">
+    <a routerLink="/privadasColecciones" [class.active]="isActiveLink(5)" (click)="setActiveLink(5)" class="fa-solid fa-bookmark" title="Mis colecciones"></a>
+
+    <a *ngIf="!userInfo" routerLink="/login" [class.active]="isActiveLink(6)" (click)="setActiveLink(6)" class="fas fa-user" title="Usuario"></a>
+    <a *ngIf="userInfo" (click)="toggleOptions()" class="fas fa-sign-out-alt" title="Cerrar sesión"></a>
+
+    <!-- Options -->
+    <div class="options-container" *ngIf="showOptions" [ngClass]="{'slide-down': showOptions, 'slide-up': !showOptions}">
+      <span class="letras-opciones" routerLink="/cuenta-usuario" (click)="anotherOption()">Cuenta</span>
+      <div class="linea-horizontal"></div>
+      <span class="letras-opciones" (click)="logout()">Cerrar sesión</span>
+    </div>
+
+  </div>
+</header>

@@ -1,0 +1,250 @@
+
+*{
+    text-transform: none !important;
+}
+body{
+    align-items: center;
+    margin-top: 15%;
+    margin-left: 35%;
+    margin-right: 34%;
+}
+
+/*---------------IMAGENES-----------------*/
+.imagen-ola{
+    width: 54%;
+    position: absolute; /* Esto permitirá mover la imagen sin afectar el flujo del documento */
+    top: 53%; /* Ajusta la posición superior */
+    left: -7%; /* Ajusta la posición izquierda */
+    z-index: -1; 
+}
+.chico-surf{
+    width: 20%;
+    position: absolute; /* Esto permitirá mover la imagen sin afectar el flujo del documento */
+    top: 55%; /* Ajusta la posición superior */
+    left: 4%; /* Ajusta la posición izquierda */
+    z-index: -1; 
+}
+/*--------------------*/
+form{
+    align-items: center;
+    margin-top: 10%;
+    margin-left: 35%;
+    margin-right: 34%;
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.1);
+    background: #495057;
+    border-radius: 10px;
+}
+.letras-terminos{
+    color: #000814;
+    
+}
+.letras-iniciar{
+    margin-top: 10px;
+    font-size: 20px;
+    margin-bottom: 15px;
+    color: #000814;
+    font-weight: bold;
+}
+a{
+    text-decoration: underline;
+}
+.contenedor{
+    text-align: center;
+    align-items: center;
+    padding: 5%;
+    border-radius: 10PX;
+    margin: 0%;
+    box-shadow:  .1rem .1rem 2rem 1rem rgba(0,0,0,.1);
+    backdrop-filter: blur(.1rem);
+    -webkit-backdrop-filter: blur(.1rem);
+    background: #edede9;
+    z-index: 100;
+    
+}
+.contenedor-inputs{
+    padding: 10px;
+    border-radius: 10px;    
+}
+/*------------TIPO DE CUENTA--------*/
+.input-div{
+    color: #000814;
+    /* display: block; */
+    width: 100%;
+    outline: none;
+    font-size: 1rem;
+    padding: 0 20px;
+    height: 40px;
+    border-radius: 10px;
+    border: 2px solid #000814;
+    background: transparent;
+}
+
+#select{
+    display: flex;
+    text-align: left;
+    /*margin-top: 10px;*/
+    cursor: pointer;
+}
+#select i {
+    margin-left: 25%;
+}
+#select.active, #select:hover{
+    box-shadow: 0px 5px 5px rgb(65, 64, 64);
+    border: 2px solid #e09f3e;
+}
+.contenedor-tipocuenta{
+    width: 100%;
+    padding: 2%;
+    
+}
+.contenedor-tipocuenta p {
+    margin-left: 10%;
+    color: #6c757d;
+}
+.contenedor-tipocuenta p.blanco {
+    color: #000814; /* Color blanco para el texto */
+}
+.icono-flecha{
+    position: relative;
+    margin-top: 2%;
+    left: 32%;
+    width: 100%;
+}
+.input-div .input-icon-1{
+    position: relative;
+    padding: 0 9px;
+}
+.input-div .input-icon-1 i{
+    position: absolute;
+    color: #000814;
+    right: -25%;
+    top: 30%;
+    font-size: 1rem;
+}
+.input-div .input-icon-1 .vertical-line{
+    width: 1.5px; /* Grosor de la línea */
+    height: 22px; /* Altura de la línea */
+    background-color: var(--medium-gray); /* Color de la línea */
+    margin-left: 0px; /* Espacio desde el borde izquierdo del contenedor */
+    position: absolute;
+    left: 180%; /* Ajusta la posición de la línea */
+    bottom: 21%;
+}
+/*---------OPCINES DE SELECT------*/
+.opciones{
+    background: #adb5bd;
+    border-radius: 10px;
+    z-index: 100;
+    width: 100%;
+    display: none;
+    text-align: right;
+    flex-direction:column;
+    margin-top: 1%;
+}
+.opciones.active{
+    display: block;
+    
+}
+.opcion {
+    display: block;
+    width: 100%;
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: #343a40;
+    margin-bottom: 5px; 
+    transition: .2s ease all;
+    padding: 3% 5% 3% 0;
+}
+.contenedor-a {
+    border-radius: 10px;
+    cursor: pointer;
+}
+.contenedor-a:hover{
+    width: 100%;
+    background: white ;
+}
+/*------------INPUT--------------*/
+.input-icon{
+    position: relative;
+}
+.input-icon i{
+    position: absolute;
+    color: #000814;
+    left: 7%;
+    bottom: 30%;
+    font-size: 1rem;
+}
+.input-icon .vertical-line {
+    width: 1.5px; /* Grosor de la línea */
+    height: 22px; /* Altura de la línea */
+    background-color: var(--medium-gray); /* Color de la línea */
+    margin-left: 0px; /* Espacio desde el borde izquierdo del contenedor */
+    position: absolute;
+    left: 14%; /* Ajusta la posición de la línea */
+    bottom: 21%;
+  }
+.input-container{
+    margin-top: 10px;
+}
+
+
+/* Estilos base para los inputs */
+.input {
+    color: #000814;
+    /* display: block; */
+    width: 100%;
+    outline: none;
+    font-size: 1rem;
+    padding: 0 60px;
+    height: 40px;
+    border-radius: 10px;
+    border: 2px solid #000814;
+    background: transparent;
+}
+
+/* Estilo para cuando hay un error */
+.contenedor-error {
+    bottom: -40px;
+    left: 0;
+  }
+  .error {
+    color: #e63946;
+    font-size: 0.9rem;
+    margin-left: 5%;
+    text-align: left;
+  }
+
+/* Estilo para cuando el input está enfocado */
+.input:focus {
+    color: #000814; /* Cambia el color del texto cuando el input está enfocado */
+    border-color: #e09f3e; /* Cambia el color del borde cuando el input está enfocado */
+}
+
+/*-------------TERMINOS Y CONDICIONES------*/
+.checkbox{
+    width: 5%;
+}
+.contenedor-check{
+    margin-left: 5%;
+    margin-top: 10%;
+    display: flex;
+}
+.letras-terminos {
+    margin-left: 2%;
+}
+
+/*-----------LETRAS--------*/
+
+button{
+    color: white;
+    font-weight: bold;
+    background: #000814;
+    padding: 2%;
+    margin-top: 3%;
+    width: 95%;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+
+  

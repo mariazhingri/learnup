@@ -1,0 +1,92 @@
+
+
+
+<!-- LIBROS SECTION START -->
+<section #libroSection class="about" *ngIf="mostrarLibros">
+
+  <!-- START FILTER -->
+  <div class="filtro">
+    <div class="search-wrapper">
+      <input type="text" placeholder="Buscar..." [(ngModel)]="filtroBusqueda" (keyup)="filtrarRecursos()">
+      <i class="fas fa-search"></i>
+    </div>
+  </div>
+  <!-- END FILTER -->
+
+
+  <section class="about">
+    <div class="contenedor-recursos" *ngIf="!backendProblem && !internetProblem">
+    </div>
+
+    <div class="contenedor-mensaje" *ngIf="backendProblem && !internetProblem">
+      <p style="font-size: 1.2rem; font-weight: 800; color: var(--pink);">Hay un problema con la conexión al servidor. Por favor, inténtalo de nuevo más tarde.</p>
+    </div>
+
+    <div class="contenedor-mensaje" *ngIf="!backendProblem && internetProblem">
+      <p style="font-size: 1.2rem; font-weight: 800; color: var(--pink);">Hay un problema con la conexión a internet. Por favor, verifica tu conexión e inténtalo de nuevo.</p>
+    </div>
+  </section>
+  
+
+  <h1 class="title">{{ nivel }} <span>{{ materia }}</span></h1>
+  <div *ngIf="librosMostrados.length === 0">
+    <p style="font-size: 1rem;">El recurso no existe en la base de datos</p>
+  </div>
+  <div *ngIf="libros.length > 0; else noLibrosMessage">
+    <div class="row" *ngFor="let libro of librosPaginados">
+      <div class="img-container">
+        <img *ngIf="isLocalImageLibro(libro.imagen_url); else externalImage"
+             [src]="getFullImageUrlLibro(libro.imagen_url)"
+             alt="Portada del libro"
+             width="100%"
+             height="300"
+             style="border-radius: 1.5rem;">
+        <ng-template #externalImage>
+          <img *ngIf="isExternalImageLibro(libro.imagen_url)" [src]="libro.imagen_url" alt="Portada del libro" width="100%" height="300" style="border-radius: 1.5rem;">
+        </ng-template>
+      </div>
+      <div class="content">
+        <h3>{{ libro.titulo }}</h3>
+        <p>{{ libro.descripcion }}</p>
+        <p class="libro-titulo">Autor: <span class="libro-dato">{{ libro.autor }}</span></p>
+        <p class="libro-titulo">Fecha de publicación: <span class="libro-dato">{{ libro.fecha | date:'yyyy' }}</span></p>
+        <p class="libro-titulo">Edición: <span class="libro-dato">{{ libro.edicion }}</span></p>
+
+        <h3 *ngIf="isLoggedIn()">
+          <a *ngIf="isPdfLibro(libro.url)" [href]="getFullPdfUrlLibro(libro.url)" target="_blank">
+            <span class="link-span">Leer</span></a>
+        </h3>
+        <h3 *ngIf="isLoggedIn()">
+          <a *ngIf="!isPdfLibro(libro.url)" [href]="libro.url" target="_blank">
+            <span class="link-span">Resolver</span> </a>
+        </h3>
+        <div class="icons" *ngIf="isLoggedIn()">
+          <a href="#" class="fa-solid fa-bookmark" title="Guardar"></a>
+          <a
+            [href]="isPdfLibro(libro.url) ? getFullPdfUrlLibro(libro.url) : libro.url"
+            (click)="handleLinkClickLibro($event, libro.url)"
+            target="_blank"
+            class="fa-solid fa-circle-down"
+            [attr.title]="isPdfLibro(libro.url) ? '' : 'Descargar'">
+            <span class="link-span">{{ isPdfLibro(libro.url) ? '' : '' }}</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pagination-container">
+    <div class="pagination">
+      <button class="btn2" (click)="irPrimeraPaginaLibros(); scrollToTop();" [disabled]="paginaActualLibros === 1">Ir al inicio</button>
+      <button class="btn2" (click)="paginaAnteriorLibros(); scrollToTop();" [disabled]="paginaActualLibros === 1">Anterior</button>
+      <span>Página {{ paginaActualLibros }} de {{ numeroTotalPaginasLibros }}</span>
+      <button class="btn2" (click)="paginaSiguienteLibros(); scrollToTop();" [disabled]="paginaActualLibros === numeroTotalPaginasLibros">Siguiente</button>
+      <button class="btn2" (click)="irUltimaPaginaLibros(); scrollToTop();" [disabled]="paginaActualLibros === numeroTotalPaginasLibros">Ir al final</button>
+    </div>
+  </div>
+  <ng-template #noLibrosMessage>
+    <p style="font-size: 1rem; text-transform: none !important;">No se encontraron libros para esta materia.</p>
+  </ng-template>
+</section>
+<!-- LIBROS SECTION END -->
+
+

@@ -1,0 +1,85 @@
+<html>
+    <body>
+        <form [formGroup]="FormularioDatosUsuario" class="contenedor">
+            <div>
+                <h1>Datos de usuario</h1>
+            </div>
+            <div class="contenedor-contenedores">
+                <div class="primer-contenedor">
+                    <div>
+                        <div class="contenedor-inputs">
+                            <label>Nombre de Usuario</label>
+                            <input class="inputs" formControlName="username" type="text" name="" id="">
+                        </div>
+                        <div class="contenedor-inputs">
+                            <label>Correo</label>
+                            <input  class="inputs" formControlName="correo" type="text">
+                        </div>
+                        <!-- Institución en la que labora -->
+                        <div class="contenedor-inputs">
+                            <label>Institución en la que labora</label>
+                            <label for="">Institución en la que Estudia</label>
+                            <input  class="inputs" type="text">
+                        </div>
+                        <!-- Nivel Eductivo -->
+                        <div>
+                            <div class="input-div" id="select" (click)="mostrarOpciones()">
+                                <div class="contenedor-niveleducativo">
+                                    <p>Nivel Eductivo</p>
+                                </div>
+                                <div class="icono-flecha">
+                                    <i class="fa-solid fa-angle-down"></i>
+                                </div>
+                            </div>
+                            <!-- OPCIONES DE SELECT - ESTUDIANTE-->
+                            <div class="opciones" id="opciones">
+                                <div class="contenedor-a" (click)="f['niveleducativo'].setValue('Prescolar')">
+                                <p class="opcion">Prescolar</p>
+                                </div>
+                                <div class="contenedor-a" (click)="f['niveleducativo'].setValue('Primaria')">
+                                <p class="opcion">Primaria</p>
+                                </div>
+                                <div class="contenedor-a" (click)="f['niveleducativo'].setValue('Secundaria')">
+                                    <p class="opcion">Secundaria</p>
+                                </div>
+                                <div class="contenedor-a" (click)="f['niveleducativo'].setValue('Bachillerato')">
+                                    <p class="opcion">Bachillerato</p>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" name="tipo-cuenta" formControlName="niveleducativo" value="">
+                        <div  class="contenedor-inputs">
+                            <label>Fecha de Nacimiento</label>
+                            <input class="inputs" type="date" name="" id="">
+                        </div>
+                        <div class="contenedor-inputs">
+                            <label>Sexo</label>
+                            <div class="contenedor-sexo">
+                                <div class="radio-sexo">
+                                    <input type="radio" name="sexo" id="" value="Masculino">
+                                    <label class="label-sexo">Masculino</label>
+                                </div>
+                                <div class="radio-sexo" id="radio-sexo-f">
+                                    <input type="radio" name="sexo" id="" value="Femenino">
+                                    <label class="label-sexo">Femenino</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div  class="contenedor-inputs">
+                            <label for="">Celular</label>
+                            <input class="inputs" type="number" name="" id="">
+                        </div>
+                    </div>
+                </div>
+                <div class="segundo-contenedor">
+                    <div class="datos-usuario">
+                        <label for="">Tipo Cuenta</label>
+                        <label>Nombre Usuario</label>
+                        <label for="">Correo</label>
+                    </div>
+                </div>
+            </div>
+        </form>
+        
+    </body>
+</html>

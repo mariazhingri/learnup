@@ -1,0 +1,400 @@
+
+
+<!-- START HEADING -->
+<!-- <a [routerLink]="'/inicio'" (click)="scrollToTop()" ></a> -->
+<div class="title">
+  <div class="heading">
+      <h1>
+        <span>r</span>
+        <span>e</span>
+        <span>c</span>
+        <span>u</span>
+        <span>r</span>
+        <span>s</span>
+        <span>o</span>
+        <span>s</span>
+      </h1>
+      <div class="subtitle"><a> <p> Todos los </p> Recursos</a> </div>
+  </div>
+</div>
+<!-- END HEADING -->
+
+
+
+<!-- START FILTER -->
+<div class="filtro">
+  <!-- <a class="btn3" [class.active]="filtroActivo === null" (click)="mostrarTodo()">Todos</a> -->
+  <a class="btn3" [class.active]="filtroActivo === 'videos'" (click)="mostrarVideos()">Videos</a>
+  <a class="btn3" [class.active]="filtroActivo === 'libros'" (click)="mostrarLibros()">Libros</a>
+  <a class="btn3" [class.active]="filtroActivo === 'actividades'" (click)="mostrarActividades()"> Actividades </a>
+
+  <div class="search-wrapper">
+    <div class="input-container">
+      <input type="text" placeholder="Buscar..." [(ngModel)]="filtroBusqueda" (keyup)="filtrarRecursos()">
+      <i class="fas fa-search"></i>
+    </div>
+  </div>
+
+</div>
+<!-- END FILTER -->
+
+
+
+<!-- TODOS LOS RECURSOS SECTION START -->
+<!-- <section *ngIf="mostrarTodosLosRecursos" class="about">
+  <h1 class="title2">Todos los <span>Recursos</span></h1>
+
+  <div *ngFor="let video of videosPaginados" class="row">
+    <div class="recurso-container">
+      <iframe
+        width="100%"
+        height="315"
+        [src]="getSafeUrl(video.video_id)"
+        title="Reproductor de video de YouTube"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen
+        style="border-radius: 1.5rem;">
+      </iframe>
+    </div>
+    <div class="content">
+      <h3>{{ video.titulo }}</h3>
+      <p>{{ video.descripcion }}</p>
+      <div class="icons">
+        <a href="#" class="fa-solid fa-bookmark" title="Guardar"></a>
+        <a href="#" class="fa-solid fa-circle-down" title="Descargar"></a>
+      </div>
+    </div>
+  </div>
+
+
+  <div *ngFor="let libro of librosPaginados" class="row">
+    <div class="img-container">
+      <img [src]="libro.imagen_url" alt="Portada del libro" width="100%" height="300" style="border-radius: 1.5rem;">
+    </div>
+    <div class="content">
+      <h3>{{ libro.titulo }}</h3>
+      <p>{{ libro.descripcion }}</p>
+      <p class="libro-titulo">Autor: <span class="libro-dato">{{ libro.autor }}</span></p>
+      <p class="libro-titulo">Fecha de publicación: <span class="libro-dato">{{ libro.fecha | date:'yyyy' }}</span></p>
+      <p class="libro-titulo">Edición: <span class="libro-dato">{{ libro.edicion }}</span></p>
+      <h3><a [href]="libro.url" target="_blank"><span class="link-span">Leer</span></a></h3>
+      <div class="icons">
+        <a href="#" class="fa-solid fa-bookmark" title="Guardar"></a>
+        <a href="#" class="fa-solid fa-circle-down" title="Descargar"></a>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div *ngFor="let actividad of actividadesPaginados" class="row">
+    <div class="img-container">
+      <img [src]="actividad.imagen_url" alt="Imagen de la actividad" width="100%" height="300" style="border-radius: 1.5rem;">
+    </div>
+    <div class="content">
+      <h3>{{ actividad.titulo }}</h3>
+      <p>{{ actividad.descripcion }}</p>
+      <h3><a [href]="actividad.url" target="_blank"><span class="link-span">Resolver</span></a></h3>
+      <div class="icons">
+        <a href="#" class="fa-solid fa-bookmark" title="Guardar"></a>
+        <a href="#" class="fa-solid fa-circle-down" title="Descargar"></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="pagination-container">
+    <div class="pagination">
+      <button class="btn2" (click)="irPrimeraPaginaTodos(); scrollToTop();" [disabled]="paginaActualTodos === 1">Ir al inicio</button>
+      <button class="btn2" (click)="paginaAnteriorTodos(); scrollToTop();" [disabled]="paginaActualTodos === 1">Anterior</button>
+      <span>Página {{ paginaActualTodos }} de {{ numeroTotalPaginasTodos }}</span>
+      <button class="btn2" (click)="paginaSiguienteTodos(); scrollToTop();" [disabled]="paginaActualTodos === numeroTotalPaginasTodos">Siguiente</button>
+      <button class="btn2" (click)="irUltimaPaginaTodos(); scrollToTop();" [disabled]="paginaActualTodos === numeroTotalPaginasTodos">Ir al final</button>
+    </div>
+  </div>
+
+</section> -->
+<!-- TODOS LOS RECURSOS SECTION END -->
+
+
+
+<!-- VIDEOS SECTION START -->
+<section *ngIf="mostrarVideo" class="about">
+  <h1 class="title2">Recursos de <span>Videos</span></h1>
+
+  <div class="contenedor-recursos" *ngIf="!backendProblem && !internetProblem">
+  </div>
+
+  <div class="contenedor-mensaje" *ngIf="backendProblem && !internetProblem">
+    <p style="font-size: 1.2rem; font-weight: 800; color: var(--pink);">Hay un problema con la conexión al servidor. Por favor, inténtalo de nuevo más tarde.</p>
+  </div>
+
+  <div class="contenedor-mensaje" *ngIf="!backendProblem && internetProblem">
+    <p style="font-size: 1.2rem; font-weight: 800; color: var(--pink);">Hay un problema con la conexión a internet. Por favor, verifica tu conexión e inténtalo de nuevo.</p>
+  </div>
+
+  <div *ngIf="videosPaginados.length > 0; else noVideosMessage">
+    <div class="row" *ngFor="let video of videosPaginados">
+      <div class="recurso-container" style="position: relative;">
+        <iframe
+          *ngIf="isYouTubeUrl(video.url)"
+          width="100%"
+          height="315"
+          [src]="getSafeUrl(video.video_id)"
+          title="Reproductor de video de YouTube"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen
+          style="border-radius: 1.5rem;">
+        </iframe>
+        <video
+          *ngIf="isMp4Url(video.url)"
+          [src]="getFullVideoUrl(video.url)"
+          controls
+          width="100%"
+          height="315"
+          style="border-radius: 1.5rem;">
+          [attr.controls]="isLoggedIn() ? 'controls' : null">
+          Tu navegador no soporta el elemento de video.
+        </video>
+        <div *ngIf="!isLoggedIn()"
+          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); color: white; display: flex; justify-content: center; align-items: center; border-radius: 1.5rem; text-transform: none; font-size: 1.3rem;">
+          <p style="text-transform: none; margin: 0;">Por favor inicia sesión para reproducir el video.</p>
+        </div>
+      </div>
+      <div class="content">
+        <h3>{{ video.titulo }}</h3>
+        <p>{{ video.descripcion }}</p>
+        <h3 *ngIf="isLoggedIn()">
+          <a *ngIf="isMp4Url(video.url)" [href]="getFullVideoUrl(video.url)" class="link-span" target="_blank">
+            <span class="link-span">Ver</span> </a>
+        </h3>
+        <h3 *ngIf="isLoggedIn()">
+          <a *ngIf="!isMp4Url(video.url)" [href]="video.url" class="link-span" target="_blank">
+            <span class="link-span">Ver</span> </a>
+        </h3>
+        <div class="icons" *ngIf="isLoggedIn()">
+          <a href="#" class="fa-solid fa-bookmark" title="Guardar" (click)="openDialog($event, video)"></a>
+          <a
+            [href]="isMp4Url(video.url) ? getFullVideoUrl(video.url) : video.url"
+            (click)="isMp4Url(video.url) ? handleLinkClickVideo($event, video.url) : null"
+            target="_blank"
+            class="fa-solid fa-circle-down"
+            [attr.title]="isMp4Url(video.url) ? '' : 'Descargar'">
+            <span class="link-span">{{ isMp4Url(video.url) ? '' : '' }}</span>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="pagination-container">
+    <div class="pagination">
+      <button class="btn2" (click)="irPrimeraPaginaVideos(); scrollToTop();" [disabled]="paginaActualVideos === 1">Ir al inicio</button>
+      <button class="btn2" (click)="paginaAnteriorVideos(); scrollToTop();" [disabled]="paginaActualVideos === 1">Anterior</button>
+      <span>Página {{ paginaActualVideos }} de {{ numeroTotalPaginasVideos }}</span>
+      <button class="btn2" (click)="paginaSiguienteVideos(); scrollToTop();" [disabled]="paginaActualVideos === numeroTotalPaginasVideos">Siguiente</button>
+      <button class="btn2" (click)="irUltimaPaginaVideos(); scrollToTop();" [disabled]="paginaActualVideos === numeroTotalPaginasVideos">Ir al final</button>
+    </div>
+  </div>
+  <ng-template #noVideosMessage>
+    <p style="font-size: 1rem; text-transform: none !important;">No se encontraron videos.</p>
+  </ng-template>
+</section>
+<!-- VIDEOS SECTION END -->
+
+
+
+
+<!-- LIBROS SECTION START -->
+<section *ngIf="mostrarLibro" class="about">
+  <h1 class="title2">Recursos de <span>Libros</span></h1>
+
+  <div class="contenedor-recursos" *ngIf="!backendProblem && !internetProblem">
+  </div>
+
+  <div class="contenedor-mensaje" *ngIf="backendProblem && !internetProblem">
+    <p style="font-size: 1.2rem; font-weight: 800; color: var(--pink);">Hay un problema con la conexión al servidor. Por favor, inténtalo de nuevo más tarde.</p>
+  </div>
+
+  <div class="contenedor-mensaje" *ngIf="!backendProblem && internetProblem">
+    <p style="font-size: 1.2rem; font-weight: 800; color: var(--pink);">Hay un problema con la conexión a internet. Por favor, verifica tu conexión e inténtalo de nuevo.</p>
+  </div>
+
+  <div *ngIf="librosPaginados.length > 0; else noLibrosMessage">
+    <div class="row" *ngFor="let libro of librosPaginados">
+      <div class="img-container">
+        <img *ngIf="isLocalImageLibro(libro.imagen_url); else externalImage"
+             [src]="getFullImageUrlLibro(libro.imagen_url)"
+             alt="Portada del libro"
+             width="100%"
+             height="300"
+             style="border-radius: 1.5rem;">
+        <ng-template #externalImage>
+          <img *ngIf="isExternalImageLibro(libro.imagen_url)"
+          [src]="libro.imagen_url"
+          alt="Portada del libro"
+          width="100%"
+          height="300"
+          style="border-radius: 1.5rem;">
+        </ng-template>
+      </div>
+      <div class="content">
+        <h3>{{ libro.titulo }}</h3>
+        <p>{{ libro.descripcion }}</p>
+        <p class="libro-titulo">Autor: <span class="libro-dato">{{ libro.autor }}</span></p>
+        <p class="libro-titulo">Fecha de publicación: <span class="libro-dato">{{ libro.fecha | date:'yyyy' }}</span></p>
+        <p class="libro-titulo">Edición: <span class="libro-dato">{{ libro.edicion }}</span></p>
+        <h3 *ngIf="isLoggedIn()">
+          <a *ngIf="isPdfLibro(libro.url)" [href]="getFullPdfUrlLibro(libro.url)" target="_blank">
+            <span class="link-span">Leer</span> </a>
+        </h3>
+        <h3 *ngIf="isLoggedIn()">
+          <a *ngIf="!isPdfLibro(libro.url)" [href]="libro.url" class="link-span" target="_blank">
+            <span class="link-span">Leer</span> </a>
+        </h3>
+        <div class="icons" *ngIf="isLoggedIn()">
+          <a href="#" class="fa-solid fa-bookmark" title="Guardar" (click)="openDialog($event, libro)"></a>
+          <a
+            [href]="isPdfLibro(libro.url) ? getFullPdfUrlLibro(libro.url) : libro.url"
+            (click)="handleLinkClickLibro($event, libro.url)"
+            target="_blank"
+            class="fa-solid fa-circle-down"
+            [attr.title]="isPdfLibro(libro.url) ? '' : 'Descargar'">
+            <span class="link-span">{{ isPdfLibro(libro.url) ? '' : '' }}</span>
+          </a>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pagination-container">
+    <div class="pagination">
+      <button class="btn2" (click)="irPrimeraPaginaLibros(); scrollToTop();" [disabled]="paginaActualLibros === 1">Ir al inicio</button>
+      <button class="btn2" (click)="paginaAnteriorLibros(); scrollToTop();" [disabled]="paginaActualLibros === 1">Anterior</button>
+      <span>Página {{ paginaActualLibros }} de {{ numeroTotalPaginasLibros }}</span>
+      <button class="btn2" (click)="paginaSiguienteLibros(); scrollToTop();" [disabled]="paginaActualLibros === numeroTotalPaginasLibros">Siguiente</button>
+      <button class="btn2" (click)="irUltimaPaginaLibros(); scrollToTop();" [disabled]="paginaActualLibros === numeroTotalPaginasLibros">Ir al final</button>
+    </div>
+  </div>
+  <ng-template #noLibrosMessage>
+    <p style="font-size: 1rem; text-transform: none !important;">No se encontraron libros.</p>
+  </ng-template>
+</section>
+<!-- LIBROS SECTION END -->
+
+
+
+
+<!-- ACTIVIDADES SECTION START -->
+<section *ngIf="mostrarActividad" class="about">
+  <h1 class="title2">Recursos de<span>Actividades</span></h1>
+
+  <div class="contenedor-recursos" *ngIf="!backendProblem && !internetProblem">
+  </div>
+
+  <div class="contenedor-mensaje" *ngIf="backendProblem && !internetProblem">
+    <p style="font-size: 1.2rem; font-weight: 800; color: var(--pink);">Hay un problema con la conexión al servidor. Por favor, inténtalo de nuevo más tarde.</p>
+  </div>
+
+  <div class="contenedor-mensaje" *ngIf="!backendProblem && internetProblem">
+    <p style="font-size: 1.2rem; font-weight: 800; color: var(--pink);">Hay un problema con la conexión a internet. Por favor, verifica tu conexión e inténtalo de nuevo.</p>
+  </div>
+
+
+  <div *ngIf="actividadesPaginados.length > 0; else noActividadesMessage">
+    <div class="row" *ngFor="let actividad of actividadesPaginados">
+      <div class="img-container">
+        <img *ngIf="isLocalImageActividad(actividad.imagen_url); else externalImage"
+             [src]="getFullImageUrlActividad(actividad.imagen_url)"
+             alt="Imagen de la actividad"
+             width="100%"
+             height="300"
+             style="border-radius: 1.5rem;">
+        <ng-template #externalImage>
+          <img *ngIf="isExternalImageActividad(actividad.imagen_url)"
+          [src]="actividad.imagen_url"
+          alt="Imagen de la actividad"
+          width="100%" height="300"
+          style="border-radius: 1.5rem;">
+        </ng-template>
+      </div>
+      <div class="content">
+        <h3>{{ actividad.titulo }}</h3>
+        <p>{{ actividad.descripcion }}</p>
+        <h3 *ngIf="isLoggedIn()">
+          <a *ngIf="isPdfActividad(actividad.url)" [href]="getFullPdfUrlActividad(actividad.url)" target="_blank">
+            <span class="link-span">Resolver</span> </a>
+        </h3>
+        <h3 *ngIf="isLoggedIn()">
+          <a *ngIf="!isPdfActividad(actividad.url)" [href]="actividad.url" target="_blank">
+            <span class="link-span">Resolver</span> </a>
+        </h3>
+        <div class="icons" *ngIf="isLoggedIn()">
+          <a href="#" class="fa-solid fa-bookmark" title="Guardar" (click)="openDialog($event, actividad)"></a>
+          <a
+            [href]="isPdfActividad(actividad.url) ? getFullPdfUrlActividad(actividad.url) : actividad.url"
+            (click)="handleLinkClickActividad($event, actividad.url)"
+            target="_blank"
+            class="fa-solid fa-circle-down"
+            [attr.title]="isPdfActividad(actividad.url) ? '' : 'Descargar'">
+            <span class="link-span">{{ isPdfActividad(actividad.url) ? '' : '' }}</span>
+          </a>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pagination-container">
+    <div class="pagination">
+      <button class="btn2" (click)="irPrimeraPaginaActividades(); scrollToTop();" [disabled]="paginaActualActividades === 1">Ir al inicio</button>
+      <button class="btn2" (click)="paginaAnteriorActividades(); scrollToTop();" [disabled]="paginaActualActividades === 1">Anterior</button>
+      <span>Página {{ paginaActualActividades }} de {{ numeroTotalPaginasActividades }}</span>
+      <button class="btn2" (click)="paginaSiguienteActividades(); scrollToTop();" [disabled]="paginaActualActividades === numeroTotalPaginasActividades">Siguiente</button>
+      <button class="btn2" (click)="irUltimaPaginaActividades(); scrollToTop();" [disabled]="paginaActualActividades === numeroTotalPaginasActividades">Ir al final</button>
+    </div>
+  </div>
+  <ng-template #noActividadesMessage>
+    <p style="font-size: 1rem; text-transform: none !important;">No se encontraron actividades.</p>
+  </ng-template>
+</section>
+<!-- ACTIVIDADES SECTION END -->
+
+
+
+
+<!-- LIBROS SECTION START -->
+<!-- <section *ngIf="mostrarLibro" class="about">
+  <h1 class="title2">Recursos de<span>Libros</span></h1>
+
+  <div>
+    <div class="row" *ngFor="let entry of librosPaginados">
+      <div class="img-container">
+        <img width="100%" height="315" [src]="entry.url_cubierta" alt="Cubierta del libro">
+      </div>
+      <div class="content">
+        <h3>{{ entry.titulo }}</h3>
+        <p>Autor: {{ entry.autores }}</p>
+        <p>Fecha de publicación: {{ entry.fecha_publicacion }}</p>
+        <div class="icons">
+          <a href="#" class="fas fa-heart" title="Favorito"></a>
+          <a href="#" class="fa-solid fa-bookmark" title="Guardar"></a>
+          <a href="#" class="fa-solid fa-circle-down" title="Descargar"></a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pagination-container">
+    <div class="pagination">
+      <button class="btn2" (click)="paginaAnteriorLibros()" [disabled]="paginaActualLibros === 1">Anterior</button>
+      <span>Página {{ paginaActualLibros }} de {{ numeroTotalPaginasLibros }}</span>
+      <button class="btn2" (click)="paginaSiguienteLibros()" [disabled]="paginaActualLibros === numeroTotalPaginasLibros">Siguiente</button>
+    </div>
+  </div>
+  <ng-template #noLibrosMessage>
+    <p>No se encontraron libros.</p>
+  </ng-template>
+</section> -->
+<!-- LIBROS SECTION END -->
